@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.RocketLaunch
+import androidx.compose.material.icons.outlined.ShoppingBasket
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -53,6 +54,16 @@ fun PizzaPlanetsTopAppBar(
                 Icon(
                     imageVector = Icons.Outlined.RocketLaunch,
                     contentDescription = null,
+                )
+            }
+        },
+        actions = {
+            IconButton(onClick = {
+                // TODO: navigate to order list screen
+            }) {
+                Icon(
+                    imageVector = Icons.Outlined.ShoppingBasket,
+                    contentDescription = stringResource(R.string.goto_order_list_description)
                 )
             }
         },

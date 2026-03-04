@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pizza Planets</string>
+    <string name="back_button">Back</string>
 </resources>

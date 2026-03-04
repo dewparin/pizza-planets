@@ -22,7 +22,9 @@ fun PizzaPlanetsNavHost(
         modifier = modifier,
     ) {
         composable<HomeScreenRoute> {
-            HomeScreen()
+            HomeScreen() { planetId ->
+                // TODO: navigate to planet detail screen
+            }
         }
     }
 }

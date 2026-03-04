@@ -6,13 +6,13 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-class PizzaPlanetApplication : Application() {
+class PizzaPlanetsApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
         startKoin {
             androidLogger()
-            androidContext(this@PizzaPlanetApplication)
+            androidContext(this@PizzaPlanetsApplication)
             modules(appModule)
         }
     }

@@ -2,23 +2,39 @@
 
 package com.example.pizzaplanets.ui.screen.home
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
 import com.example.pizzaplanets.entity.Planet
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
+import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
+import com.example.pizzaplanets.ui.utils.durationToDisplayString
+import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -54,7 +70,7 @@ fun HomeBody(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-       modifier = modifier
+        modifier = modifier
     ) {
         items(planetList) { planet ->
             PlanetItem(planet)
@@ -70,8 +86,62 @@ fun PlanetItem(
     Card(
         modifier = modifier,
     ) {
-        Text(
-            planet.name
+        Column() {
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(dimensionResource(R.dimen.image_size)),
+                painter = painterResource(planet.getPlanetDrawableByCode()),
+                contentDescription = stringResource(R.string.planet_image_description),
+                contentScale = ContentScale.Crop,
+            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(R.dimen.padding_small)),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    planet.name,
+                    style = MaterialTheme.typography.headlineLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text(
+                    stringResource(
+                        R.string.planet_duration,
+                        planet.durationToDisplayString(),
+                    ),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            }
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(R.dimen.padding_small)),
+                text = planet.description,
+                style = MaterialTheme.typography.bodyLarge,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun PlanetItemPreview() {
+    PizzaPlanetsTheme {
+        PlanetItem(
+            Planet(
+                id = 1,
+                planetCode = "sat-1",
+                name = "Moon",
+                description = "Welcome to our closest cosmic kitchen! Moon Base Pizzeria serves up legendary low-gravity pies where the cheese stretches all the way to the ceiling. Try our signature \"Crater Crust Supreme\" — baked in ancient volcanic vents for that extra smoky flavor. Fun fact: our dough rises 6x higher here thanks to 1/6th Earth gravity. Every bite is literally out of this world!",
+                travelDurationMs = 13_000,
+            )
         )
     }
 }

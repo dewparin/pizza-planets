@@ -2,4 +2,6 @@
     <string name="app_name">Pizza Planets</string>
     <string name="back_button">Back</string>
     <string name="goto_order_list_description">Go to order list screen</string>
+    <string name="planet_image_description">Planet Image</string>
+    <string name="planet_duration">%s seconds away</string>
 </resources>

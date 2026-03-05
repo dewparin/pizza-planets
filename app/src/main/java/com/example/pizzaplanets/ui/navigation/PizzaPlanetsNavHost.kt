@@ -5,11 +5,18 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.example.pizzaplanets.ui.screen.home.HomeScreen
+import com.example.pizzaplanets.ui.screen.planet.PlanetDetailScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
 object HomeScreenRoute
+
+@Serializable
+data class PlanetDetailRoute(
+    val planetId: Int,
+)
 
 @Composable
 fun PizzaPlanetsNavHost(
@@ -23,8 +30,18 @@ fun PizzaPlanetsNavHost(
     ) {
         composable<HomeScreenRoute> {
             HomeScreen() { planetId ->
-                // TODO: navigate to planet detail screen
+                // navigate to planet detail screen
+                navHostController.navigate(route = PlanetDetailRoute(planetId))
             }
+        }
+        composable<PlanetDetailRoute> { backstackEntry ->
+            val route: PlanetDetailRoute = backstackEntry.toRoute()
+            PlanetDetailScreen(
+                planetId = route.planetId,
+                navigateBack = {
+                    navHostController.navigateUp()
+                }
+            )
         }
     }
 }

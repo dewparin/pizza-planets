@@ -58,37 +58,46 @@ fun HomeScreen(
         }
     ) { innerPadding ->
         HomeBody(
+            modifier = Modifier.padding(innerPadding),
             planetList = uiState.planets,
-            modifier = Modifier.padding(innerPadding)
+            onItemClick = { planet ->
+                navigateToPlanetDetail(planet.id)
+            }
         )
     }
 }
 
 @Composable
-fun HomeBody(
+private fun HomeBody(
     planetList: List<Planet>,
     modifier: Modifier = Modifier,
+    onItemClick: (Planet) -> Unit = {},
 ) {
     LazyColumn(
         modifier = modifier
     ) {
         items(planetList) { planet ->
             PlanetItem(
-                planet,
                 modifier = Modifier
-                    .padding(dimensionResource(R.dimen.padding_medium))
+                    .padding(dimensionResource(R.dimen.padding_medium)),
+                planet = planet,
+                onClick = {
+                    onItemClick(planet)
+                }
             )
         }
     }
 }
 
 @Composable
-fun PlanetItem(
+private fun PlanetItem(
     planet: Planet,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
 ) {
     Card(
         modifier = modifier,
+        onClick = onClick,
     ) {
         Column() {
             Image(
@@ -136,7 +145,7 @@ fun PlanetItem(
 
 @Preview
 @Composable
-fun PlanetItemPreview() {
+private fun PlanetItemPreview() {
     PizzaPlanetsTheme {
         PlanetItem(
             Planet(
@@ -152,7 +161,7 @@ fun PlanetItemPreview() {
 
 @Preview
 @Composable
-fun HomeBodyPreview() {
+private fun HomeBodyPreview() {
     PizzaPlanetsTheme {
         HomeBody(
             listOf(

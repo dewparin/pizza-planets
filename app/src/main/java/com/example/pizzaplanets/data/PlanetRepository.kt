@@ -9,6 +9,7 @@ import java.io.IOException
 
 interface PlanetRepository {
     fun getAllPlanets(): Flow<List<Planet>>
+    fun getPlanet(planetId: Int): Flow<Planet?>
 }
 
 class OfflinePlanetRepository(
@@ -30,4 +31,6 @@ class OfflinePlanetRepository(
             }
         }
 
+    override fun getPlanet(planetId: Int): Flow<Planet?> = planetDao
+        .queryPlanet(planetId)
 }

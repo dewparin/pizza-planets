@@ -15,4 +15,12 @@ interface PlanetDao {
         """
     )
     fun queryAllPlanets(): Flow<List<Planet>>
+
+    @Query(
+        """
+            SELECT * FROM planets
+            WHERE id = :planetId
+        """
+    )
+    fun queryPlanet(planetId: Int): Flow<Planet?>
 }

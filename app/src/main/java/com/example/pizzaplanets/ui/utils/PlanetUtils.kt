@@ -10,7 +10,7 @@ import com.example.pizzaplanets.entity.Planet
 fun Planet.getPlanetDrawableByCode(): Int =
     when (planetCode) {
         "sat-1" -> R.drawable.moon
-        else -> throw IllegalArgumentException("Unknown Planet Code")
+        else -> R.drawable.moon//throw IllegalArgumentException("Unknown Planet Code")
     }
 
 fun Planet.durationToDisplayString() = "%,d".format(travelDurationMs / 1_000)

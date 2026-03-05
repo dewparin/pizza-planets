@@ -73,7 +73,11 @@ fun HomeBody(
         modifier = modifier
     ) {
         items(planetList) { planet ->
-            PlanetItem(planet)
+            PlanetItem(
+                planet,
+                modifier = Modifier
+                    .padding(dimensionResource(R.dimen.padding_medium))
+            )
         }
     }
 }
@@ -122,7 +126,7 @@ fun PlanetItem(
                     .padding(dimensionResource(R.dimen.padding_small)),
                 text = planet.description,
                 style = MaterialTheme.typography.bodyLarge,
-                maxLines = 3,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
         }
@@ -141,6 +145,38 @@ fun PlanetItemPreview() {
                 name = "Moon",
                 description = "Welcome to our closest cosmic kitchen! Moon Base Pizzeria serves up legendary low-gravity pies where the cheese stretches all the way to the ceiling. Try our signature \"Crater Crust Supreme\" — baked in ancient volcanic vents for that extra smoky flavor. Fun fact: our dough rises 6x higher here thanks to 1/6th Earth gravity. Every bite is literally out of this world!",
                 travelDurationMs = 13_000,
+            )
+        )
+    }
+}
+
+@Preview
+@Composable
+fun HomeBodyPreview() {
+    PizzaPlanetsTheme {
+        HomeBody(
+            listOf(
+                Planet(
+                    id = 1,
+                    planetCode = "sat-1",
+                    name = "Moon",
+                    description = "Welcome to our closest cosmic kitchen! Moon Base Pizzeria serves up legendary low-gravity pies where the cheese stretches all the way to the ceiling. Try our signature \"Crater Crust Supreme\" — baked in ancient volcanic vents for that extra smoky flavor. Fun fact: our dough rises 6x higher here thanks to 1/6th Earth gravity. Every bite is literally out of this world!",
+                    travelDurationMs = 13_000,
+                ),
+                Planet(
+                    id = 2,
+                    planetCode = "pln-1",
+                    name = "Mercury",
+                    description = "The fastest planet gets the fastest pizza! Mercury Magma Grill is famous for stone-fired pies cooked directly on the sun-facing surface at 430°C — no oven needed. Try our \"Speedy Gonzola\" topped with triple mozzarella that melts before it even hits the crust. Warning: delivery to the night side may arrive frozen. We recommend dining on the terminator line for the perfect temperature!",
+                    travelDurationMs = 18_000,
+                ),
+                Planet(
+                    id = 3,
+                    planetCode = "pln-2",
+                    name = "Venus",
+                    description = "At Venus Cloud Nine Pizzeria, we bake at atmospheric pressure 90x stronger than Earth — giving our crusts an unmatched density and crunch. Our bestseller \"Acid Rain-bow\" features layers of tangy sauce inspired by our sulfuric skies. Dining happens in floating sky stations above the clouds where the view is absolutely gorgeous. Don''t worry, we provide heat-resistant bibs!",
+                    travelDurationMs = 22_000,
+                ),
             )
         )
     }

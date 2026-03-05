@@ -5,7 +5,9 @@ import com.example.pizzaplanets.data.OfflinePlanetRepository
 import com.example.pizzaplanets.data.PlanetRepository
 import com.example.pizzaplanets.data.local.PizzaPlanetsDatabase
 import com.example.pizzaplanets.data.local.PlanetDao
+import com.example.pizzaplanets.ui.screen.home.HomeScreenViewModel
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
@@ -25,5 +27,10 @@ val appModule = module {
     // Repository
     single<PlanetRepository> {
         OfflinePlanetRepository(get())
+    }
+
+    // ViewModel
+    viewModel {
+        HomeScreenViewModel(get())
     }
 }

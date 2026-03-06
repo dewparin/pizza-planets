@@ -32,5 +32,5 @@ interface PlanetDao {
             WHERE planets.id = :planetId
         """
     )
-    fun queryPlanetWithPizzas(planetId: Int): Flow<Map<Planet, List<Pizza>>>
+    fun queryPlanetWithPizzaList(planetId: Int): Flow<Map<Planet, List<Pizza>>>
 }

@@ -9,15 +9,15 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-data class PlanetPizzas(
+data class PlanetWithPizzaList(
     val planet: Planet,
-    val pizzas: List<Pizza>
+    val pizzaList: List<Pizza>
 )
 
 interface PlanetRepository {
     fun getAllPlanets(): Flow<List<Planet>>
     fun getPlanet(planetId: Int): Flow<Planet?>
-    fun getPlanetWithPizzas(planetId: Int): Flow<PlanetPizzas?>
+    fun getPlanetWithPizzaList(planetId: Int): Flow<PlanetWithPizzaList?>
 }
 
 class OfflinePlanetRepository(
@@ -42,8 +42,8 @@ class OfflinePlanetRepository(
     override fun getPlanet(planetId: Int): Flow<Planet?> = planetDao
         .queryPlanet(planetId)
 
-    override fun getPlanetWithPizzas(planetId: Int): Flow<PlanetPizzas?> = planetDao
-        .queryPlanetWithPizzas(planetId)
+    override fun getPlanetWithPizzaList(planetId: Int): Flow<PlanetWithPizzaList?> = planetDao
+        .queryPlanetWithPizzaList(planetId)
         .catch {
             if (it is IOException) {
                 Log.e(TAG, "getPlanetWithPizzas # Error reading planet and menu")
@@ -56,9 +56,9 @@ class OfflinePlanetRepository(
                 null
             } else {
                 val entry = map.entries.first()
-                PlanetPizzas(
+                PlanetWithPizzaList(
                     planet = entry.key,
-                    pizzas = entry.value,
+                    pizzaList = entry.value,
                 )
             }
         }

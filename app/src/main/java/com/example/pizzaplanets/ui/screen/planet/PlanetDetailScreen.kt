@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -61,6 +63,7 @@ fun PlanetDetailScreen(
     val uiState by viewModel.uiState.collectAsState()
     val planet = uiState.planet
     val pizzaList = uiState.pizzaList ?: listOf()
+    var reviewButtonEnabled by remember { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier
@@ -79,6 +82,7 @@ fun PlanetDetailScreen(
                 modifier = Modifier.padding(innerPadding),
                 planet = planet,
                 pizzaList = pizzaList,
+                reviewButtonEnabled = reviewButtonEnabled,
                 onMenuSelectionUpdate = { pizzaId, selected ->
                     // TODO: update selected pizza
                 }
@@ -90,20 +94,6 @@ fun PlanetDetailScreen(
 
 }
 
-@Composable
-private fun NoPlanet(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(dimensionResource(R.dimen.padding_medium)),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(stringResource(R.string.planet_does_not_exist))
-    }
-}
-
 /**
  * @param planet
  * @param pizzaList
@@ -113,22 +103,53 @@ private fun NoPlanet(
 private fun PlanetDetailBody(
     planet: Planet,
     pizzaList: List<Pizza>,
+    reviewButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     onMenuSelectionUpdate: (Int, Boolean) -> Unit = { _, _ -> },
 ) {
-    Column(modifier = modifier) {
-        PlanetDetailSection(
-            planet = planet,
-        )
-        PizzaMenuSection(
-            modifier = Modifier.padding(
-                start = dimensionResource(R.dimen.padding_small),
-                top = dimensionResource(R.dimen.padding_large),
-                end = dimensionResource(R.dimen.padding_small),
-                bottom = dimensionResource(R.dimen.padding_small),
-            ),
-            pizzaList = pizzaList,
-            onMenuSelectionUpdate = onMenuSelectionUpdate
+    Box(
+        modifier = modifier,
+    ) {
+        LazyColumn {
+            item {
+                PlanetDetailSection(
+                    planet = planet,
+                )
+            }
+            item {
+                Text(
+                    text = stringResource(R.string.menu),
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(dimensionResource(R.dimen.padding_small))
+                )
+            }
+            items(pizzaList) { pizza ->
+                PizzaMenuItem(
+                    pizza = pizza,
+                    onSelectionUpdate = {
+                        onMenuSelectionUpdate(pizza.id, it)
+                    },
+                    modifier = Modifier
+                        .padding(dimensionResource(R.dimen.padding_small))
+                )
+            }
+            item {
+                Spacer(
+                    modifier = Modifier
+                        .height(dimensionResource(R.dimen.height_list_bottom_offset))
+                )
+            }
+        }
+        ReviewButton(
+            enabled = reviewButtonEnabled,
+            onClick = {
+                // TODO : navigate to review order screen
+            },
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(dimensionResource(R.dimen.padding_small))
         )
     }
 }
@@ -192,38 +213,6 @@ private fun PlanetInfo(
     }
 }
 
-/**
- * @param pizzaList
- * @param onMenuSelectionUpdate(Pizza ID, Selected)
- */
-@Composable
-private fun PizzaMenuSection(
-    pizzaList: List<Pizza>,
-    modifier: Modifier = Modifier,
-    onMenuSelectionUpdate: (Int, Boolean) -> Unit = { _, _ -> },
-) {
-    Column(
-        modifier = modifier,
-    ) {
-        Text(
-            text = stringResource(R.string.menu),
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-        )
-        LazyColumn {
-            items(pizzaList) { pizza ->
-                PizzaMenuItem(
-                    modifier = Modifier.padding(vertical = dimensionResource(R.dimen.padding_small)),
-                    pizza = pizza,
-                    onSelectionUpdate = {
-                        onMenuSelectionUpdate(pizza.id, it)
-                    }
-                )
-            }
-        }
-    }
-}
-
 @Composable
 private fun PizzaMenuItem(
     pizza: Pizza,
@@ -238,7 +227,7 @@ private fun PizzaMenuItem(
             Row(
                 modifier = Modifier
                     .padding(dimensionResource(R.dimen.padding_small))
-                    .height(dimensionResource(R.dimen.pizza_menu_height))
+                    .height(dimensionResource(R.dimen.height_pizza_menu))
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
@@ -257,9 +246,44 @@ private fun PizzaMenuItem(
                     }
                 )
             }
+            // TODO: add menu description expanded area
         }
     }
 
+}
+
+@Composable
+private fun ReviewButton(
+    enabled: Boolean,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+) {
+    ElevatedButton(
+        enabled = enabled,
+        onClick = onClick,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(dimensionResource(R.dimen.height_review_order_button))
+    ) {
+        Text(
+            text = stringResource(R.string.review_order)
+        )
+    }
+}
+
+
+@Composable
+private fun NoPlanet(
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(dimensionResource(R.dimen.padding_medium)),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(stringResource(R.string.planet_does_not_exist))
+    }
 }
 
 //--- Preview Composables
@@ -299,6 +323,7 @@ private fun PlanetDetailBodyPreview() {
         PlanetDetailBody(
             planet = mockPlanet,
             pizzaList = mockPizzaList,
+            reviewButtonEnabled = false,
         )
     }
 }
@@ -316,6 +341,7 @@ private fun PlanetDetailBodyDarkThemePreview() {
                 travelDurationMs = 13_000,
             ),
             pizzaList = mockPizzaList,
+            reviewButtonEnabled = false,
         )
     }
 }

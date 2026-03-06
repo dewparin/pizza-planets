@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,6 +24,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -75,6 +79,9 @@ fun PlanetDetailScreen(
                 modifier = Modifier.padding(innerPadding),
                 planet = planet,
                 pizzaList = pizzaList,
+                onMenuSelectionUpdate = { pizzaId, selected ->
+                    // TODO: update selected pizza
+                }
             )
         } else {
             NoPlanet()
@@ -97,11 +104,17 @@ private fun NoPlanet(
     }
 }
 
+/**
+ * @param planet
+ * @param pizzaList
+ * @param onMenuSelectionUpdate(Pizza ID, Selected)
+ */
 @Composable
 private fun PlanetDetailBody(
     planet: Planet,
     pizzaList: List<Pizza>,
     modifier: Modifier = Modifier,
+    onMenuSelectionUpdate: (Int, Boolean) -> Unit = { _, _ -> },
 ) {
     Column(modifier = modifier) {
         PlanetDetailSection(
@@ -115,6 +128,7 @@ private fun PlanetDetailBody(
                 bottom = dimensionResource(R.dimen.padding_small),
             ),
             pizzaList = pizzaList,
+            onMenuSelectionUpdate = onMenuSelectionUpdate
         )
     }
 }
@@ -178,10 +192,15 @@ private fun PlanetInfo(
     }
 }
 
+/**
+ * @param pizzaList
+ * @param onMenuSelectionUpdate(Pizza ID, Selected)
+ */
 @Composable
 private fun PizzaMenuSection(
     pizzaList: List<Pizza>,
     modifier: Modifier = Modifier,
+    onMenuSelectionUpdate: (Int, Boolean) -> Unit = { _, _ -> },
 ) {
     Column(
         modifier = modifier,
@@ -196,6 +215,9 @@ private fun PizzaMenuSection(
                 PizzaMenuItem(
                     modifier = Modifier.padding(vertical = dimensionResource(R.dimen.padding_small)),
                     pizza = pizza,
+                    onSelectionUpdate = {
+                        onMenuSelectionUpdate(pizza.id, it)
+                    }
                 )
             }
         }
@@ -206,7 +228,9 @@ private fun PizzaMenuSection(
 private fun PizzaMenuItem(
     pizza: Pizza,
     modifier: Modifier = Modifier,
+    onSelectionUpdate: (Boolean) -> Unit = {},
 ) {
+    var checked by remember { mutableStateOf(false) }
     Card(modifier = modifier) {
         Column(
             modifier = modifier,
@@ -224,6 +248,13 @@ private fun PizzaMenuItem(
                     style = MaterialTheme.typography.titleLarge,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
+                )
+                Checkbox(
+                    checked = checked,
+                    onCheckedChange = {
+                        checked = it
+                        onSelectionUpdate(checked)
+                    }
                 )
             }
         }

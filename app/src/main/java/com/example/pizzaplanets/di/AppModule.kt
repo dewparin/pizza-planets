@@ -19,7 +19,9 @@ val appModule = module {
             androidContext(),
             PizzaPlanetsDatabase::class.java,
             "pizza_planets_database",
-        ).build()
+        )
+            .fallbackToDestructiveMigration(true)
+            .build()
     }
     single<PlanetDao> {
         get<PizzaPlanetsDatabase>().planetDao()

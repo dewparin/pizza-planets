@@ -2,6 +2,7 @@ package com.example.pizzaplanets.data.local
 
 import androidx.room.Dao
 import androidx.room.Query
+import com.example.pizzaplanets.entity.Pizza
 import com.example.pizzaplanets.entity.Planet
 import kotlinx.coroutines.flow.Flow
 
@@ -23,4 +24,13 @@ interface PlanetDao {
         """
     )
     fun queryPlanet(planetId: Int): Flow<Planet?>
+
+    @Query(
+        """
+            SELECT * FROM planets
+            JOIN pizzas ON planets.id = pizzas.planet_id
+            WHERE planets.id = :planetId
+        """
+    )
+    fun queryPlanetWithPizzas(planetId: Int): Flow<Map<Planet, List<Pizza>>>
 }

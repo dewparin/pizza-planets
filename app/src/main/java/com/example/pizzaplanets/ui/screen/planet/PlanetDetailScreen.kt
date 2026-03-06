@@ -28,12 +28,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.pizzaplanets.R
 import com.example.pizzaplanets.entity.Planet
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
-import com.example.pizzaplanets.ui.utils.durationToDisplayString
 import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -101,7 +99,7 @@ private fun PlanetDetailBody(
             shadowElevation = dimensionResource(R.dimen.elevation_shadow),
             tonalElevation = dimensionResource(R.dimen.elevation_tonal),
         ) {
-            Column() {
+            Column {
                 PlanetHeaderImage(planet)
                 PlanetDetail(planet)
             }

@@ -52,8 +52,9 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun PlanetDetailScreen(
     planetId: Int,
-    modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
+    navigateToReviewOrder: (List<Int>) -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: PlanetDetailViewModel = koinViewModel(
         parameters = {
             parametersOf(planetId)
@@ -92,6 +93,9 @@ fun PlanetDetailScreen(
                     }
                     reviewButtonEnabled = selectedPizzaIds.isNotEmpty()
                 },
+                onReviewOrderButtonClick = {
+                    navigateToReviewOrder(selectedPizzaIds.toList())
+                },
                 modifier = Modifier.padding(innerPadding)
             )
         } else {
@@ -113,6 +117,7 @@ private fun PlanetDetailBody(
     reviewButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     onMenuSelectionUpdate: (Int, Boolean) -> Unit = { _, _ -> },
+    onReviewOrderButtonClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier,
@@ -143,9 +148,7 @@ private fun PlanetDetailBody(
         }
         ReviewButton(
             enabled = reviewButtonEnabled,
-            onClick = {
-                // TODO : navigate to review order screen
-            },
+            onClick = onReviewOrderButtonClick,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(dimensionResource(R.dimen.padding_small))

@@ -66,8 +66,6 @@ fun PlanetDetailScreen(
     var reviewButtonEnabled by remember { mutableStateOf(false) }
 
     Scaffold(
-        modifier = modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             PizzaPlanetsTopAppBar(
                 title = planet?.name ?: stringResource(R.string.app_name),
@@ -75,17 +73,19 @@ fun PlanetDetailScreen(
                 scrollBehavior = scrollBehavior,
                 navigateUp = navigateBack,
             )
-        }
+        },
+        modifier = modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
     ) { innerPadding ->
         if (planet != null) {
             PlanetDetailBody(
-                modifier = Modifier.padding(innerPadding),
                 planet = planet,
                 pizzaList = pizzaList,
                 reviewButtonEnabled = reviewButtonEnabled,
                 onMenuSelectionUpdate = { pizzaId, selected ->
                     // TODO: update selected pizza
-                }
+                },
+                modifier = Modifier.padding(innerPadding)
             )
         } else {
             NoPlanet()
@@ -112,18 +112,10 @@ private fun PlanetDetailBody(
     ) {
         LazyColumn {
             item {
-                PlanetDetailSection(
-                    planet = planet,
-                )
+                PlanetInfoHeader(planet)
             }
             item {
-                Text(
-                    text = stringResource(R.string.menu),
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(dimensionResource(R.dimen.padding_small))
-                )
+                MenuTitle()
             }
             items(pizzaList) { pizza ->
                 PizzaMenuItem(
@@ -155,62 +147,57 @@ private fun PlanetDetailBody(
 }
 
 @Composable
-private fun PlanetDetailSection(
+private fun PlanetInfoHeader(
     planet: Planet,
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier = modifier,
         shadowElevation = dimensionResource(R.dimen.elevation_shadow),
         tonalElevation = dimensionResource(R.dimen.elevation_tonal),
+        modifier = modifier
     ) {
         Column {
-            PlanetHeaderImage(planet)
-            PlanetInfo(
-                modifier = Modifier.padding(dimensionResource(R.dimen.padding_small)),
-                planet = planet,
+            Image(
+                painter = painterResource(planet.getPlanetDrawableByCode()),
+                contentDescription = stringResource(R.string.planet_image_description),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(dimensionResource(R.dimen.image_size))
             )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
+                modifier = Modifier
+                    .padding(dimensionResource(R.dimen.padding_small))
+            ) {
+                Text(
+                    text = stringResource(R.string.branch_title, planet.name),
+                    style = MaterialTheme.typography.headlineLarge,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text(
+                    text = planet.description,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun PlanetHeaderImage(
-    planet: Planet,
+private fun MenuTitle(
     modifier: Modifier = Modifier,
 ) {
-    Image(
+    Text(
+        text = stringResource(R.string.menu),
+        style = MaterialTheme.typography.headlineSmall,
+        fontWeight = FontWeight.Bold,
         modifier = modifier
-            .fillMaxWidth()
-            .height(dimensionResource(R.dimen.image_size)),
-        painter = painterResource(planet.getPlanetDrawableByCode()),
-        contentDescription = stringResource(R.string.planet_image_description),
-        contentScale = ContentScale.Crop,
+            .padding(dimensionResource(R.dimen.padding_small))
     )
-}
-
-@Composable
-private fun PlanetInfo(
-    planet: Planet,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
-    ) {
-        Text(
-            text = stringResource(R.string.branch_title, planet.name),
-            style = MaterialTheme.typography.headlineLarge,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-        )
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(),
-            text = planet.description,
-            style = MaterialTheme.typography.bodyLarge,
-        )
-    }
 }
 
 @Composable
@@ -221,16 +208,14 @@ private fun PizzaMenuItem(
 ) {
     var checked by remember { mutableStateOf(false) }
     Card(modifier = modifier) {
-        Column(
-            modifier = modifier,
-        ) {
+        Column(modifier = modifier) {
             Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .padding(dimensionResource(R.dimen.padding_small))
                     .height(dimensionResource(R.dimen.height_pizza_menu))
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
+                    .fillMaxWidth()
             ) {
                 Text(
                     text = pizza.name,
@@ -277,10 +262,10 @@ private fun NoPlanet(
     modifier: Modifier = Modifier,
 ) {
     Box(
+        contentAlignment = Alignment.Center,
         modifier = modifier
             .fillMaxSize()
-            .padding(dimensionResource(R.dimen.padding_medium)),
-        contentAlignment = Alignment.Center,
+            .padding(dimensionResource(R.dimen.padding_medium))
     ) {
         Text(stringResource(R.string.planet_does_not_exist))
     }

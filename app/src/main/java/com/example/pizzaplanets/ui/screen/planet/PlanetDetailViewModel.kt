@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 
 data class PlanetDetailUiState(
     val planet: Planet? = null,
-    val pizzas: List<Pizza>? = null,
+    val pizzaList: List<Pizza>? = null,
 )
 
 class PlanetDetailViewModel(
@@ -21,11 +21,11 @@ class PlanetDetailViewModel(
 ) : ViewModel() {
 
     val uiState: StateFlow<PlanetDetailUiState> = planetRepository
-        .getPlanetWithPizzas(planetId)
+        .getPlanetWithPizzaList(planetId)
         .map {
             PlanetDetailUiState(
                 planet = it?.planet,
-                pizzas = it?.pizzas,
+                pizzaList = it?.pizzaList,
             )
         }
         .stateIn(

@@ -6,4 +6,5 @@
     <string name="planet_duration">%ss. away</string>
     <string name="planet_does_not_exist">The Planet does not exist! Beware of the invisible Black Hole.</string>
     <string name="branch_title">%s Branch</string>
+    <string name="menu">Menu</string>
 </resources>

@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateSetOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -63,6 +64,7 @@ fun PlanetDetailScreen(
     val uiState by viewModel.uiState.collectAsState()
     val planet = uiState.planet
     val pizzaList = uiState.pizzaList ?: listOf()
+    val selectedPizzaIds = remember { mutableStateSetOf<Int>() }
     var reviewButtonEnabled by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -83,7 +85,12 @@ fun PlanetDetailScreen(
                 pizzaList = pizzaList,
                 reviewButtonEnabled = reviewButtonEnabled,
                 onMenuSelectionUpdate = { pizzaId, selected ->
-                    // TODO: update selected pizza
+                    if (selected) {
+                        selectedPizzaIds.add(pizzaId)
+                    } else {
+                        selectedPizzaIds.remove(pizzaId)
+                    }
+                    reviewButtonEnabled = selectedPizzaIds.isNotEmpty()
                 },
                 modifier = Modifier.padding(innerPadding)
             )

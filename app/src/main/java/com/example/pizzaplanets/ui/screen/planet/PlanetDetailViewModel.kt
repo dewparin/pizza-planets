@@ -5,27 +5,32 @@ import androidx.lifecycle.viewModelScope
 import com.example.pizzaplanets.data.PlanetRepository
 import com.example.pizzaplanets.entity.Pizza
 import com.example.pizzaplanets.entity.Planet
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 data class PlanetDetailUiState(
     val planet: Planet? = null,
     val pizzaList: List<Pizza>? = null,
+    val selectedPizzaIds: Set<Int> = emptySet(),
 )
 
 class PlanetDetailViewModel(
-    private val planetId: Int,
-    private val planetRepository: PlanetRepository,
+    planetId: Int,
+    planetRepository: PlanetRepository,
 ) : ViewModel() {
+
+    private val _selectedPizzaIds = MutableStateFlow<Set<Int>>(emptySet())
 
     val uiState: StateFlow<PlanetDetailUiState> = planetRepository
         .getPlanetWithPizzaList(planetId)
-        .map {
+        .combine(_selectedPizzaIds) { planetPizzaList, selectedPizzaIds ->
             PlanetDetailUiState(
-                planet = it?.planet,
-                pizzaList = it?.pizzaList,
+                planet = planetPizzaList?.planet,
+                pizzaList = planetPizzaList?.pizzaList,
+                selectedPizzaIds = selectedPizzaIds,
             )
         }
         .stateIn(
@@ -33,4 +38,12 @@ class PlanetDetailViewModel(
             started = SharingStarted.WhileSubscribed(5_000L),
             initialValue = PlanetDetailUiState(),
         )
+
+    fun togglePizzaSelection(pizzaId: Int, selected: Boolean) {
+        _selectedPizzaIds.value = if (selected) {
+            _selectedPizzaIds.value + pizzaId
+        } else {
+            _selectedPizzaIds.value - pizzaId
+        }
+    }
 }

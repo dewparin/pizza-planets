@@ -26,10 +26,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.mutableStateSetOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -65,8 +61,7 @@ fun PlanetDetailScreen(
     val uiState by viewModel.uiState.collectAsState()
     val planet = uiState.planet
     val pizzaList = uiState.pizzaList ?: listOf()
-    val selectedPizzaIds = remember { mutableStateSetOf<Int>() }
-    var reviewButtonEnabled by remember { mutableStateOf(false) }
+    val selectedPizzaIds = uiState.selectedPizzaIds
 
     Scaffold(
         topBar = {
@@ -84,14 +79,10 @@ fun PlanetDetailScreen(
             PlanetDetailBody(
                 planet = planet,
                 pizzaList = pizzaList,
-                reviewButtonEnabled = reviewButtonEnabled,
+                selectedPizzaIds = selectedPizzaIds,
+                reviewButtonEnabled = selectedPizzaIds.isNotEmpty(),
                 onMenuSelectionUpdate = { pizzaId, selected ->
-                    if (selected) {
-                        selectedPizzaIds.add(pizzaId)
-                    } else {
-                        selectedPizzaIds.remove(pizzaId)
-                    }
-                    reviewButtonEnabled = selectedPizzaIds.isNotEmpty()
+                    viewModel.togglePizzaSelection(pizzaId, selected)
                 },
                 onReviewOrderButtonClick = {
                     navigateToReviewOrder(selectedPizzaIds.toList())
@@ -114,6 +105,7 @@ fun PlanetDetailScreen(
 private fun PlanetDetailBody(
     planet: Planet,
     pizzaList: List<Pizza>,
+    selectedPizzaIds: Set<Int>,
     reviewButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     onMenuSelectionUpdate: (Int, Boolean) -> Unit = { _, _ -> },
@@ -132,6 +124,7 @@ private fun PlanetDetailBody(
             items(pizzaList) { pizza ->
                 PizzaMenuItem(
                     pizza = pizza,
+                    checked = pizza.id in selectedPizzaIds,
                     onSelectionUpdate = {
                         onMenuSelectionUpdate(pizza.id, it)
                     },
@@ -212,10 +205,10 @@ private fun MenuTitle(
 @Composable
 private fun PizzaMenuItem(
     pizza: Pizza,
+    checked: Boolean,
     modifier: Modifier = Modifier,
     onSelectionUpdate: (Boolean) -> Unit = {},
 ) {
-    var checked by remember { mutableStateOf(false) }
     Card(modifier = modifier) {
         Column(modifier = modifier) {
             Row(
@@ -234,10 +227,7 @@ private fun PizzaMenuItem(
                 )
                 Checkbox(
                     checked = checked,
-                    onCheckedChange = {
-                        checked = it
-                        onSelectionUpdate(checked)
-                    }
+                    onCheckedChange = { onSelectionUpdate(it) }
                 )
             }
             // TODO: add menu description expanded area
@@ -323,6 +313,7 @@ private fun PlanetDetailBodyPreview() {
         PlanetDetailBody(
             planet = mockPlanet,
             pizzaList = mockPizzaList,
+            selectedPizzaIds = emptySet(),
             reviewButtonEnabled = false,
         )
     }
@@ -341,6 +332,7 @@ private fun PlanetDetailBodyDarkThemePreview() {
                 travelDurationMs = 13_000,
             ),
             pizzaList = mockPizzaList,
+            selectedPizzaIds = emptySet(),
             reviewButtonEnabled = false,
         )
     }

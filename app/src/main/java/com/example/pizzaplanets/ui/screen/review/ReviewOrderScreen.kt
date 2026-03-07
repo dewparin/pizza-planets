@@ -38,8 +38,9 @@ fun ReviewOrderScreen(
         topBar = {
             PizzaPlanetsTopAppBar(
                 title = stringResource(R.string.app_name),
-                canNavigateBack = false,
                 scrollBehavior = scrollBehavior,
+                canNavigateBack = true,
+                navigateUp = navigateBack,
             )
         }
     ) { innerPadding ->

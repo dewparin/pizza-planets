@@ -151,7 +151,6 @@ private fun PlanetDetailBody(
             onClick = onReviewOrderButtonClick,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(dimensionResource(R.dimen.padding_small))
         )
     }
 }
@@ -253,16 +252,22 @@ private fun ReviewButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
 ) {
-    ElevatedButton(
-        enabled = enabled,
-        onClick = onClick,
+    Surface(
+        color = MaterialTheme.colorScheme.surface,
         modifier = modifier
-            .fillMaxWidth()
-            .height(dimensionResource(R.dimen.height_review_order_button))
     ) {
-        Text(
-            text = stringResource(R.string.review_order)
-        )
+        ElevatedButton(
+            enabled = enabled,
+            onClick = onClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(dimensionResource(R.dimen.height_review_order_button))
+                .padding(dimensionResource(R.dimen.padding_small))
+        ) {
+            Text(
+                text = stringResource(R.string.review_order)
+            )
+        }
     }
 }
 

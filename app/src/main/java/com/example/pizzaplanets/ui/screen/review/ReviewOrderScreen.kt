@@ -75,7 +75,7 @@ fun OrderHeader(
         modifier = modifier
 ) {
         Text(
-            text = stringResource(R.string.your_order),
+            text = stringResource(R.string.review_your_order),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
             modifier = Modifier

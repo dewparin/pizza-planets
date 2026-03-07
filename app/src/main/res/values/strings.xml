@@ -9,4 +9,7 @@
     <string name="menu">Menu</string>
     <string name="review_order">Review Order</string>
     <string name="checkout">Checkout</string>
+    <string name="your_order">Your Order</string>
+    <string name="deliver_to">Deliver To:</string>
+    <string name="destination_address">Bangkok Space Terminal</string>
 </resources>

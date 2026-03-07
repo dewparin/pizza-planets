@@ -7,13 +7,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -95,13 +98,88 @@ fun ReviewOrderBody(
             .padding(dimensionResource(R.dimen.padding_small))
     ) {
         item {
-            OrderHeader(planet = planet)
+            Header(
+                modifier = Modifier
+                    .padding(bottom = dimensionResource(R.dimen.padding_small))
+            )
+        }
+        item {
+            Address(
+                planet = planet,
+                modifier = Modifier
+                    .padding(bottom = dimensionResource(R.dimen.padding_large))
+            )
+        }
+        item {
+            MenuTitle()
         }
         items(pizzaList) { pizza ->
             PizzaMenuItem(pizza)
         }
     }
 
+}
+
+@Composable
+fun Header(
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = stringResource(R.string.review_your_order),
+        style = MaterialTheme.typography.headlineSmall,
+        fontWeight = FontWeight.Bold,
+        modifier = modifier
+            .padding(bottom = dimensionResource(R.dimen.padding_small))
+    )
+
+}
+
+@Composable
+fun Address(
+    planet: Planet,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        color = MaterialTheme.colorScheme.primary,
+        shape = RoundedCornerShape(dimensionResource(R.dimen.padding_small)),
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
+            modifier = Modifier
+                .padding(dimensionResource(R.dimen.padding_small))
+        ) {
+            Text(
+                text = stringResource(R.string.branch_title, planet.name),
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold,
+            )
+            Row {
+                Text(
+                    "${stringResource(R.string.deliver_to)} ",
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
+                )
+                Text(
+                    stringResource(R.string.destination_address),
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MenuTitle(
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = stringResource(R.string.menu),
+        style = MaterialTheme.typography.bodyLarge,
+        fontWeight = FontWeight.Bold,
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -112,6 +190,7 @@ private fun PizzaMenuItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
+            .padding(horizontal = dimensionResource(R.dimen.padding_small))
     ) {
         Box(
             modifier = Modifier
@@ -125,46 +204,6 @@ private fun PizzaMenuItem(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .padding(dimensionResource(R.dimen.padding_small))
-        )
-    }
-}
-
-@Composable
-fun OrderHeader(
-    planet: Planet,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
-        modifier = modifier
-    ) {
-        Text(
-            text = stringResource(R.string.review_your_order),
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .padding(bottom = dimensionResource(R.dimen.padding_small))
-        )
-        Text(
-            text = stringResource(R.string.branch_title, planet.name),
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.Bold,
-        )
-        Row {
-            Text(
-                "${stringResource(R.string.deliver_to)} ",
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Bold,
-            )
-            Text(
-                stringResource(R.string.destination_address),
-                style = MaterialTheme.typography.bodyLarge,
-            )
-        }
-        Text(
-            text = stringResource(R.string.menu),
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.Bold,
         )
     }
 }

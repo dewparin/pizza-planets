@@ -18,6 +18,10 @@ interface PlanetRepository {
     fun getAllPlanets(): Flow<List<Planet>>
     fun getPlanet(planetId: Int): Flow<Planet?>
     fun getPlanetWithPizzaList(planetId: Int): Flow<PlanetWithPizzaList?>
+    fun getPlanetWithSelectedPizzaList(
+        planetId: Int,
+        selectedPizzaIds: List<Int>
+    ): Flow<PlanetWithPizzaList?>
 }
 
 class OfflinePlanetRepository(
@@ -47,6 +51,35 @@ class OfflinePlanetRepository(
         .catch {
             if (it is IOException) {
                 Log.e(TAG, "getPlanetWithPizzas # Error reading planet and menu")
+                emit(emptyMap())
+            } else {
+                throw it
+            }
+        }.map { map ->
+            if (map.isEmpty()) {
+                null
+            } else {
+                val entry = map.entries.first()
+                PlanetWithPizzaList(
+                    planet = entry.key,
+                    pizzaList = entry.value,
+                )
+            }
+        }
+
+    override fun getPlanetWithSelectedPizzaList(
+        planetId: Int,
+        selectedPizzaIds: List<Int>,
+    ): Flow<PlanetWithPizzaList?> = planetDao
+        .queryPlanetWithSelectedPizzaList(
+            planetId = planetId,
+            selectedPizzaList = selectedPizzaIds,
+        ).catch {
+            if (it is IOException) {
+                Log.e(
+                    TAG,
+                    "getPlanetWithSelectedPizzaList # Error reading planet and selected menu"
+                )
                 emit(emptyMap())
             } else {
                 throw it

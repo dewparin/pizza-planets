@@ -33,4 +33,14 @@ interface PlanetDao {
         """
     )
     fun queryPlanetWithPizzaList(planetId: Int): Flow<Map<Planet, List<Pizza>>>
+
+    @Query(
+        """
+            SELECT * FROM planets
+            JOIN pizzas ON planets.id = pizzas.planet_id
+            WHERE planets.id = :planetId
+            AND pizzas.id IN (:selectedPizzaList)
+        """
+    )
+    fun queryPlanetWithSelectedPizzaList(planetId: Int, selectedPizzaList: List<Int>): Flow<Map<Planet, List<Pizza>>>
 }

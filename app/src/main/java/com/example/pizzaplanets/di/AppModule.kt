@@ -7,6 +7,7 @@ import com.example.pizzaplanets.data.local.PizzaPlanetsDatabase
 import com.example.pizzaplanets.data.local.PlanetDao
 import com.example.pizzaplanets.ui.screen.home.HomeScreenViewModel
 import com.example.pizzaplanets.ui.screen.planet.PlanetDetailViewModel
+import com.example.pizzaplanets.ui.screen.review.ReviewOrderViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -40,6 +41,13 @@ val appModule = module {
         PlanetDetailViewModel(
             planetId = params.get(),
             planetRepository = get(),
+        )
+    }
+    viewModel { params ->
+        ReviewOrderViewModel(
+            planetId = params.get(),
+            selectedPizzaIds = params.get(),
+            planetRepository = get()
         )
     }
 }

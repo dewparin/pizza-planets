@@ -12,4 +12,5 @@
     <string name="review_your_order">Review Your Order</string>
     <string name="deliver_to">Deliver To:</string>
     <string name="destination_address">Bangkok Space Terminal</string>
+    <string name="confirm">Confirm</string>
 </resources>

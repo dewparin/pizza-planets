@@ -7,12 +7,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -79,6 +82,10 @@ fun ReviewOrderScreen(
             ReviewOrderBody(
                 planet = planet,
                 pizzaList = selectedPizzaList,
+                onConfirmClick = {
+                    // TODO: create order
+                    navigateToOrderListScreen()
+                },
                 modifier = Modifier.padding(innerPadding)
             )
         } else {
@@ -92,32 +99,40 @@ fun ReviewOrderBody(
     planet: Planet,
     pizzaList: List<Pizza>,
     modifier: Modifier = Modifier,
+    onConfirmClick: () -> Unit = {},
 ) {
-    LazyColumn(
-        modifier = modifier
-            .padding(dimensionResource(R.dimen.padding_small))
-    ) {
-        item {
-            Header(
-                modifier = Modifier
-                    .padding(bottom = dimensionResource(R.dimen.padding_small))
-            )
+    Box(modifier) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(dimensionResource(R.dimen.padding_small))
+        ) {
+            item {
+                Header(
+                    modifier = Modifier
+                        .padding(bottom = dimensionResource(R.dimen.padding_small))
+                )
+            }
+            item {
+                Address(
+                    planet = planet,
+                    modifier = Modifier
+                        .padding(bottom = dimensionResource(R.dimen.padding_large))
+                )
+            }
+            item {
+                MenuTitle()
+            }
+            items(pizzaList) { pizza ->
+                PizzaMenuItem(pizza)
+            }
         }
-        item {
-            Address(
-                planet = planet,
-                modifier = Modifier
-                    .padding(bottom = dimensionResource(R.dimen.padding_large))
-            )
-        }
-        item {
-            MenuTitle()
-        }
-        items(pizzaList) { pizza ->
-            PizzaMenuItem(pizza)
-        }
+        ConfirmButton(
+            onClick = onConfirmClick,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+        )
     }
-
 }
 
 @Composable
@@ -205,6 +220,29 @@ private fun PizzaMenuItem(
             modifier = Modifier
                 .padding(dimensionResource(R.dimen.padding_small))
         )
+    }
+}
+
+@Composable
+private fun ConfirmButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+) {
+    Surface(
+        color = MaterialTheme.colorScheme.surface,
+        modifier = modifier
+    ) {
+        Button(
+            onClick = onClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(dimensionResource(R.dimen.height_review_order_button))
+                .padding(dimensionResource(R.dimen.padding_small))
+        ) {
+            Text(
+                text = stringResource(R.string.confirm)
+            )
+        }
     }
 }
 

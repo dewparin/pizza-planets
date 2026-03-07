@@ -49,7 +49,7 @@ import org.koin.core.parameter.parametersOf
 fun PlanetDetailScreen(
     planetId: Int,
     navigateBack: () -> Unit,
-    navigateToReviewOrder: (List<Int>) -> Unit,
+    navigateToReviewOrder: (Int, List<Int>) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PlanetDetailViewModel = koinViewModel(
         parameters = {
@@ -85,7 +85,7 @@ fun PlanetDetailScreen(
                     viewModel.togglePizzaSelection(pizzaId, selected)
                 },
                 onReviewOrderButtonClick = {
-                    navigateToReviewOrder(selectedPizzaIds.toList())
+                    navigateToReviewOrder(planetId, selectedPizzaIds.toList())
                 },
                 modifier = Modifier.padding(innerPadding)
             )

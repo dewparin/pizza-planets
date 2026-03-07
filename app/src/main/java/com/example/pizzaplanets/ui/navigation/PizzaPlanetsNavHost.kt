@@ -21,6 +21,7 @@ data class PlanetDetailRoute(
 
 @Serializable
 data class ReviewOrderRoute(
+    val planetId: Int,
     val selectedPizzaIds: List<Int>,
 )
 
@@ -47,14 +48,18 @@ fun PizzaPlanetsNavHost(
                 navigateBack = {
                     navHostController.navigateUp()
                 },
-                navigateToReviewOrder = {
-                    navHostController.navigate(route = ReviewOrderRoute(it))
+                navigateToReviewOrder = { planetId, selectedPizzaIds ->
+                    navHostController.navigate(route = ReviewOrderRoute(
+                        planetId = planetId,
+                        selectedPizzaIds = selectedPizzaIds,
+                    ))
                 }
             )
         }
         composable<ReviewOrderRoute> { backstackEntry ->
             val route: ReviewOrderRoute = backstackEntry.toRoute()
             ReviewOrderScreen(
+                planetId = route.planetId,
                 selectedPizzaIds = route.selectedPizzaIds,
                 navigateBack = {
                     navHostController.navigateUp()

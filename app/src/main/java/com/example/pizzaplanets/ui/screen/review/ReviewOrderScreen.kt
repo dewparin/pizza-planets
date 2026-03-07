@@ -25,6 +25,7 @@ import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
 
 @Composable
 fun ReviewOrderScreen(
+    planetId: Int,
     selectedPizzaIds: List<Int>,
     navigateBack: () -> Unit,
     navigateToOrderListScreen: () -> Unit,

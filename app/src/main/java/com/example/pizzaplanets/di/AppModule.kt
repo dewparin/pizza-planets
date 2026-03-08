@@ -21,6 +21,7 @@ val appModule = module {
             PizzaPlanetsDatabase::class.java,
             "pizza_planets_database",
         )
+            .createFromAsset("database/pizza_planets_database.db")
             .fallbackToDestructiveMigration(true)
             .build()
     }

@@ -8,11 +8,13 @@ import com.example.pizzaplanets.data.PlanetRepository
 import com.example.pizzaplanets.data.local.OrderDao
 import com.example.pizzaplanets.data.local.PizzaPlanetsDatabase
 import com.example.pizzaplanets.data.local.PlanetDao
+import com.example.pizzaplanets.data.worker.ConfirmOrderWorker
 import com.example.pizzaplanets.ui.screen.home.HomeScreenViewModel
 import com.example.pizzaplanets.ui.screen.order.OrderListViewModel
 import com.example.pizzaplanets.ui.screen.planet.PlanetDetailViewModel
 import com.example.pizzaplanets.ui.screen.review.ReviewOrderViewModel
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.workmanager.dsl.worker
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -42,6 +44,15 @@ val appModule = module {
     }
     single<OrderRepository> {
         OfflineOrderRepository(get())
+    }
+
+    // WorkManager
+    worker { params ->
+        ConfirmOrderWorker(
+            ctx = params.get(),
+            params = params.get(),
+            orderDao = params.get(),
+        )
     }
 
     // ViewModel

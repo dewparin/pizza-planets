@@ -7,7 +7,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.pizzaplanets.entity.Order
 import com.example.pizzaplanets.entity.OrderPizzaCrossRef
-import com.example.pizzaplanets.entity.OrderWithPizzaList
+import com.example.pizzaplanets.entity.complex.OrderDetail
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,8 +18,7 @@ interface OrderDao {
             SELECT * from orders
         """
     )
-    fun queryOrderList(): Flow<List<OrderWithPizzaList>>
-
+    fun queryOrderList(): Flow<List<OrderDetail>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrder(order: Order): Long
@@ -28,9 +27,11 @@ interface OrderDao {
     suspend fun insertOrderPizzaCrossRefs(crossRefs: List<OrderPizzaCrossRef>)
 
     @Transaction
-    suspend fun createOrder(order: Order, pizzaIds: List<Int>) {
-        val orderId = insertOrder(order).toInt()
-        val crossRefs = pizzaIds.map { pizzaId -> OrderPizzaCrossRef(orderId, pizzaId) }
+    suspend fun createOrder(orderDetail: OrderDetail) {
+        val orderId = insertOrder(orderDetail.order).toInt()
+        val crossRefs = orderDetail.pizzaList.map { pizza ->
+            OrderPizzaCrossRef(orderId, pizza.id)
+        }
         insertOrderPizzaCrossRefs(crossRefs)
     }
 }

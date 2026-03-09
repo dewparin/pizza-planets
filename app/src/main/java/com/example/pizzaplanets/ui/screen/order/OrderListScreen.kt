@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +32,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
@@ -169,7 +171,13 @@ fun StaticStatusBox(
     Box(
         modifier = modifier
             .size(dimensionResource(R.dimen.card_image_size))
-            .background(Brush.horizontalGradient(colorStops = colorStops))
+            .clip(
+                RoundedCornerShape(
+                    topStart = dimensionResource(R.dimen.padding_small),
+                    bottomStart = dimensionResource(R.dimen.padding_small),
+                )
+            )
+            .background(orderStatus.statusColor())
     )
 }
 
@@ -191,6 +199,12 @@ fun AnimatedStatusBox(
     Box(
         modifier = modifier
             .size(dimensionResource(R.dimen.card_image_size))
+            .clip(
+                RoundedCornerShape(
+                    topStart = dimensionResource(R.dimen.padding_small),
+                    bottomStart = dimensionResource(R.dimen.padding_small),
+                )
+            )
             .background(
                 Brush.horizontalGradient(
                     0.0f to MaterialTheme.colorScheme.surfaceVariant,

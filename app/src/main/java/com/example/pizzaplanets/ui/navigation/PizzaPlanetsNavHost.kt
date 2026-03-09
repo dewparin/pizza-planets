@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.example.pizzaplanets.ui.screen.home.HomeScreen
+import com.example.pizzaplanets.ui.screen.order.OrderListScreen
 import com.example.pizzaplanets.ui.screen.planet.PlanetDetailScreen
 import com.example.pizzaplanets.ui.screen.review.ReviewOrderScreen
 import kotlinx.serialization.Serializable
@@ -24,6 +25,9 @@ data class ReviewOrderRoute(
     val planetId: Int,
     val selectedPizzaIds: List<Int>,
 )
+
+@Serializable
+object OrderListRoute
 
 @Composable
 fun PizzaPlanetsNavHost(
@@ -65,8 +69,15 @@ fun PizzaPlanetsNavHost(
                     navHostController.navigateUp()
                 },
                 navigateToOrderListScreen = {
-                    // TODO: Navigate to order list screen
+                    navHostController.navigate(route = OrderListRoute)
                 }
+            )
+        }
+        composable<OrderListRoute> {
+            OrderListScreen(
+                navigateBack = {
+                    navHostController.navigateUp()
+                },
             )
         }
     }

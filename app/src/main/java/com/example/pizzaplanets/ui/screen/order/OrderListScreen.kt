@@ -164,10 +164,6 @@ fun StaticStatusBox(
     orderStatus: OrderStatus,
     modifier: Modifier = Modifier,
 ) {
-    val colorStops = arrayOf(
-        0.1f to MaterialTheme.colorScheme.surfaceVariant,
-        1f to orderStatus.statusColor(),
-    )
     Box(
         modifier = modifier
             .size(dimensionResource(R.dimen.card_image_size))

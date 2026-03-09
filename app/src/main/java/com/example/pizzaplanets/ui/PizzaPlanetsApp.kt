@@ -38,6 +38,7 @@ fun PizzaPlanetsTopAppBar(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     navigateUp: () -> Unit = {},
+    navigateToOrderListScreen: (() -> Unit)? = null,
 ) {
     TopAppBar(
         title = {
@@ -58,14 +59,15 @@ fun PizzaPlanetsTopAppBar(
             }
         },
         actions = {
-            IconButton(onClick = {
-                // TODO: navigate to order list screen
-            }) {
-                Icon(
-                    imageVector = Icons.Outlined.ShoppingBasket,
-                    contentDescription = stringResource(R.string.goto_order_list_description)
-                )
+            navigateToOrderListScreen?.let {
+                IconButton(onClick = it) {
+                    Icon(
+                        imageVector = Icons.Outlined.ShoppingBasket,
+                        contentDescription = stringResource(R.string.goto_order_list_description)
+                    )
+                }
             }
+
         },
         modifier = modifier,
         scrollBehavior = scrollBehavior,

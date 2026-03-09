@@ -20,3 +20,5 @@ data class OrderDetail(
     )
     val pizzaList: List<Pizza>
 )
+
+fun OrderDetail.planet() = order.planetId

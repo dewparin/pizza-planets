@@ -42,6 +42,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeScreenViewModel = koinViewModel(),
     navigateToPlanetDetail: (Int) -> Unit = {},
+    navigateToOrderListScreen: (() -> Unit) = {},
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val uiState by viewModel.uiState.collectAsState()
@@ -54,6 +55,7 @@ fun HomeScreen(
                 title = stringResource(R.string.app_name),
                 canNavigateBack = false,
                 scrollBehavior = scrollBehavior,
+                navigateToOrderListScreen = navigateToOrderListScreen,
             )
         }
     ) { innerPadding ->

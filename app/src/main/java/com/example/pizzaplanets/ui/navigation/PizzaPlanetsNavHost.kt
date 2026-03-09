@@ -40,10 +40,14 @@ fun PizzaPlanetsNavHost(
         modifier = modifier,
     ) {
         composable<HomeScreenRoute> {
-            HomeScreen() { planetId ->
-                // navigate to planet detail screen
-                navHostController.navigate(route = PlanetDetailRoute(planetId))
-            }
+            HomeScreen(
+                navigateToPlanetDetail = { planetId ->
+                    navHostController.navigate(route = PlanetDetailRoute(planetId))
+                },
+                navigateToOrderListScreen = {
+                    navHostController.navigate(route = OrderListRoute)
+                }
+            )
         }
         composable<PlanetDetailRoute> { backstackEntry ->
             val route: PlanetDetailRoute = backstackEntry.toRoute()
@@ -53,10 +57,12 @@ fun PizzaPlanetsNavHost(
                     navHostController.navigateUp()
                 },
                 navigateToReviewOrder = { planetId, selectedPizzaIds ->
-                    navHostController.navigate(route = ReviewOrderRoute(
-                        planetId = planetId,
-                        selectedPizzaIds = selectedPizzaIds,
-                    ))
+                    navHostController.navigate(
+                        route = ReviewOrderRoute(
+                            planetId = planetId,
+                            selectedPizzaIds = selectedPizzaIds,
+                        )
+                    )
                 }
             )
         }

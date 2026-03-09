@@ -2,9 +2,9 @@
 
 package com.example.pizzaplanets.ui.screen.order
 
-import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -31,9 +31,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
@@ -113,14 +111,9 @@ private fun OrderDetailItem(
         modifier = modifier
             .fillMaxWidth()
     ) {
-        val colorStops = arrayOf(
-            0.7f to Color.Transparent,
-            1f to orderInfo.orderStatus.statusColor(),
-        )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .background(Brush.horizontalGradient(colorStops = colorStops))
         ) {
             Image(
                 painter = painterResource(planet.getPlanetDrawableByCode()),
@@ -152,11 +145,12 @@ private fun OrderDetailItem(
                     fontWeight = FontWeight.Bold,
                 )
             }
-            if (orderInfo.orderStatus != OrderStatus.PENDING
-                && orderInfo.orderStatus != OrderStatus.COMPLETED
-                && orderInfo.orderStatus != OrderStatus.CANCELLED
+            if (orderInfo.orderStatus == OrderStatus.COMPLETED
+                || orderInfo.orderStatus == OrderStatus.CANCELLED
             ) {
-                StatusColorBox(orderInfo.orderStatus)
+                StaticStatusBox(orderInfo.orderStatus)
+            } else {
+                AnimatedStatusBox(orderInfo.orderStatus)
             }
         }
     }
@@ -164,29 +158,45 @@ private fun OrderDetailItem(
 }
 
 @Composable
-fun StatusColorBox(
+fun StaticStatusBox(
     orderStatus: OrderStatus,
     modifier: Modifier = Modifier,
 ) {
-    val infiniteTransition = rememberInfiniteTransition(label = "backgroundTransition")
-
-    //Define the color child animation
-    val animatedColor by infiniteTransition.animateColor(
-        initialValue = Color.Transparent,
-        targetValue = orderStatus.statusColor(),
-        animationSpec = infiniteRepeatable(
-            //Define the speed (1000ms) and repeat behavior
-            animation = tween(1000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse // Smoothly swings back and forth
-        ),
-        label = "colorAnimation"
+    val colorStops = arrayOf(
+        0.1f to MaterialTheme.colorScheme.surfaceVariant,
+        1f to orderStatus.statusColor(),
     )
     Box(
         modifier = modifier
             .size(dimensionResource(R.dimen.card_image_size))
-            .drawBehind {
-                drawRect(animatedColor)
-            }
+            .background(Brush.horizontalGradient(colorStops = colorStops))
+    )
+}
+
+@Composable
+fun AnimatedStatusBox(
+    orderStatus: OrderStatus,
+    modifier: Modifier = Modifier,
+) {
+    val infiniteTransition = rememberInfiniteTransition(label = "gradient")
+    val stopFraction by infiniteTransition.animateFloat(
+        initialValue = 0.0f,
+        targetValue = 1.0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "stopAnimation"
+    )
+    Box(
+        modifier = modifier
+            .size(dimensionResource(R.dimen.card_image_size))
+            .background(
+                Brush.horizontalGradient(
+                    0.0f to MaterialTheme.colorScheme.surfaceVariant,
+                    stopFraction to orderStatus.statusColor()
+                )
+            )
     )
 }
 

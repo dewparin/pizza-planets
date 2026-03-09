@@ -1,12 +1,12 @@
 package com.example.pizzaplanets.entity
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Motorcycle
-import androidx.compose.material.icons.outlined.SoupKitchen
-import androidx.compose.material.icons.outlined.ThumbUp
-import androidx.compose.material.icons.outlined.Timelapse
+import androidx.compose.material.icons.filled.Cancel
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Motorcycle
+import androidx.compose.material.icons.filled.SoupKitchen
+import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.filled.Timelapse
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.room.ColumnInfo
@@ -68,11 +68,11 @@ enum class OrderStatus(val value: Int) {
 
     fun statusIcon(): ImageVector =
         when (this) {
-            PENDING -> Icons.Outlined.Timelapse
-            CONFIRMED -> Icons.Outlined.ThumbUp
-            COOKING -> Icons.Outlined.SoupKitchen
-            DELIVERING -> Icons.Outlined.Motorcycle
-            COMPLETED -> Icons.Outlined.CheckCircle
-            CANCELLED -> Icons.Outlined.Cancel
+            PENDING -> Icons.Filled.Timelapse
+            CONFIRMED -> Icons.Filled.ThumbUp
+            COOKING -> Icons.Filled.SoupKitchen
+            DELIVERING -> Icons.Filled.Motorcycle
+            COMPLETED -> Icons.Filled.CheckCircle
+            CANCELLED -> Icons.Filled.Cancel
         }
 }

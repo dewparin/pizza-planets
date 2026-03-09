@@ -167,7 +167,7 @@ private fun PlanetInfoHeader(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(dimensionResource(R.dimen.image_size))
+                    .height(dimensionResource(R.dimen.cover_image_size))
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),

@@ -105,7 +105,7 @@ private fun PlanetItem(
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(dimensionResource(R.dimen.image_size)),
+                    .height(dimensionResource(R.dimen.cover_image_size)),
                 painter = painterResource(planet.getPlanetDrawableByCode()),
                 contentDescription = stringResource(R.string.planet_image_description),
                 contentScale = ContentScale.Crop,

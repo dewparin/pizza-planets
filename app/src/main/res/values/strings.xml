@@ -15,4 +15,11 @@
     <string name="confirm">Confirm</string>
     <string name="order_list">Your Orders</string>
     <string name="no_order">No Order. Let\'s Make One!</string>
+    <string name="order_menu_count">%s Pizza(s)</string>
+    <string name="order_status_pending">Pending</string>
+    <string name="order_status_confirmed">Confirmed</string>
+    <string name="order_status_cooking">Cooking</string>
+    <string name="order_status_delivering">Delivering</string>
+    <string name="order_status_completed">Completed</string>
+    <string name="order_status_cancelled">Cancelled</string>
 </resources>

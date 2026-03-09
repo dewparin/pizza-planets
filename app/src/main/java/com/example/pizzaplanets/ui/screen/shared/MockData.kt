@@ -1,6 +1,7 @@
 package com.example.pizzaplanets.ui.screen.shared
 
 import com.example.pizzaplanets.entity.Order
+import com.example.pizzaplanets.entity.OrderStatus
 import com.example.pizzaplanets.entity.Pizza
 import com.example.pizzaplanets.entity.Planet
 import com.example.pizzaplanets.entity.result.OrderQueryResult
@@ -35,8 +36,9 @@ val mockPizzaList = listOf(
 
 val mockOrderDetailList = listOf(
     OrderQueryResult(
-        order = Order(
+        orderInfo = Order(
             planetId = mockPlanet.id,
+            orderStatus = OrderStatus.PENDING
         ),
         planet = mockPlanet,
         pizzaList = mockPizzaList,

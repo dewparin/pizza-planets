@@ -9,7 +9,7 @@ import com.example.pizzaplanets.entity.Pizza
 import com.example.pizzaplanets.entity.Planet
 
 data class OrderQueryResult(
-    @Embedded val order: Order,
+    @Embedded val orderInfo: Order,
 
     @Relation(
         parentColumn = "planet_id",

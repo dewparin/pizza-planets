@@ -56,7 +56,7 @@ class ReviewOrderViewModel(
         }
         viewModelScope.launch {
             val orderDetail = OrderQueryResult(
-                order = Order(
+                orderInfo = Order(
                     planetId = planet.id
                 ),
                 planet = planet,

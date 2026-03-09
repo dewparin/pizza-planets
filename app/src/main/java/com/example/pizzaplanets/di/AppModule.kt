@@ -10,6 +10,8 @@ import com.example.pizzaplanets.data.local.OrderDao
 import com.example.pizzaplanets.data.local.PizzaPlanetsDatabase
 import com.example.pizzaplanets.data.local.PlanetDao
 import com.example.pizzaplanets.data.worker.ConfirmOrderWorker
+import com.example.pizzaplanets.data.worker.CookingOrderWorker
+import com.example.pizzaplanets.data.worker.DeliverOrderWorker
 import com.example.pizzaplanets.ui.screen.home.HomeScreenViewModel
 import com.example.pizzaplanets.ui.screen.order.OrderListViewModel
 import com.example.pizzaplanets.ui.screen.planet.PlanetDetailViewModel
@@ -53,6 +55,20 @@ val appModule = module {
     }
     worker {
         ConfirmOrderWorker(
+            ctx = get(),
+            params = get(),
+            orderDao = get(),
+        )
+    }
+    worker {
+        CookingOrderWorker(
+            ctx = get(),
+            params = get(),
+            orderDao = get(),
+        )
+    }
+    worker {
+        DeliverOrderWorker(
             ctx = get(),
             params = get(),
             orderDao = get(),

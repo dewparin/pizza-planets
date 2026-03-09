@@ -83,7 +83,7 @@ fun ReviewOrderScreen(
                 planet = planet,
                 pizzaList = selectedPizzaList,
                 onConfirmClick = {
-                    // TODO: create order
+                    viewModel.createOrder()
                     navigateToOrderListScreen()
                 },
                 modifier = Modifier.padding(innerPadding)

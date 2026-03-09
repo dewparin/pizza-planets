@@ -44,7 +44,7 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
-work-manager = { module = "androidx.work:work-runtime-ktx" }
+work-manager = { module = "androidx.work:work-runtime-ktx", version.ref = "work_version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

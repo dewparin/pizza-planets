@@ -51,10 +51,10 @@ enum class OrderStatus(val value: Int) {
         when (this) {
             OrderStatus.CONFIRMED,
             OrderStatus.COOKING,
-            OrderStatus.DELIVERING -> Color.Yellow
+            OrderStatus.DELIVERING -> Color(0xFFFFF176) // Pastel Yellow
 
-            OrderStatus.PENDING -> Color.Gray
-            OrderStatus.COMPLETED -> Color.Green
-            OrderStatus.CANCELLED -> Color.Red
+            OrderStatus.PENDING -> Color(0xFFCFD8DC)   // Pastel Blue-Gray
+            OrderStatus.COMPLETED -> Color(0xFFA5D6A7) // Pastel Green
+            OrderStatus.CANCELLED -> Color(0xFFEF9A9A) // Pastel Red
         }
 }

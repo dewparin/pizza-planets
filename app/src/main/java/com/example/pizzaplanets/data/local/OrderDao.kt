@@ -5,8 +5,10 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import com.example.pizzaplanets.entity.Order
 import com.example.pizzaplanets.entity.OrderPizzaCrossRef
+import com.example.pizzaplanets.entity.OrderStatus
 import com.example.pizzaplanets.entity.result.OrderQueryResult
 import kotlinx.coroutines.flow.Flow
 
@@ -37,4 +39,7 @@ interface OrderDao {
 
         return orderId
     }
+
+    @Update
+    suspend fun updateOrderStatus(order: Order)
 }

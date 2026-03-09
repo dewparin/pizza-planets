@@ -3,14 +3,14 @@ package com.example.pizzaplanets.ui.screen.order
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pizzaplanets.data.OrderRepository
-import com.example.pizzaplanets.entity.complex.OrderDetail
+import com.example.pizzaplanets.entity.result.OrderQueryResult
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 data class OrderListUiState(
-    val orderList: List<OrderDetail> = emptyList()
+    val orderList: List<OrderQueryResult> = emptyList()
 )
 
 class OrderListViewModel(

@@ -3,7 +3,7 @@ package com.example.pizzaplanets.ui.screen.shared
 import com.example.pizzaplanets.entity.Order
 import com.example.pizzaplanets.entity.Pizza
 import com.example.pizzaplanets.entity.Planet
-import com.example.pizzaplanets.entity.complex.OrderDetail
+import com.example.pizzaplanets.entity.result.OrderQueryResult
 
 val mockPlanet = Planet(
     id = 1,
@@ -34,10 +34,11 @@ val mockPizzaList = listOf(
 )
 
 val mockOrderDetailList = listOf(
-    OrderDetail(
+    OrderQueryResult(
         order = Order(
             planetId = mockPlanet.id,
         ),
+        planet = mockPlanet,
         pizzaList = mockPizzaList,
     )
 )

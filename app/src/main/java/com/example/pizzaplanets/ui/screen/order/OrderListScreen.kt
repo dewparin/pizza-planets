@@ -2,13 +2,11 @@
 
 package com.example.pizzaplanets.ui.screen.order
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,19 +21,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.room.util.TableInfo
 import com.example.pizzaplanets.R
-import com.example.pizzaplanets.entity.complex.OrderDetail
-import com.example.pizzaplanets.entity.complex.planet
+import com.example.pizzaplanets.entity.result.OrderQueryResult
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.ui.screen.shared.mockOrderDetailList
 import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
-import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -69,7 +62,7 @@ fun OrderListScreen(
 
 @Composable
 private fun OrderListBody(
-    orderDetailList: List<OrderDetail>,
+    orderDetailList: List<OrderQueryResult>,
     modifier: Modifier = Modifier,
 ) {
     if (orderDetailList.isEmpty()) {
@@ -87,10 +80,10 @@ private fun OrderListBody(
 
 @Composable
 private fun OrderDetailItem(
-    orderDetail: OrderDetail,
+    orderDetail: OrderQueryResult,
     modifier: Modifier = Modifier,
 ) {
-    val planet = orderDetail.planet()
+    val planet = orderDetail.planet
     val pizzaList = orderDetail.pizzaList
     Card(
         modifier = modifier
@@ -107,7 +100,7 @@ private fun OrderDetailItem(
 //            )
             Column() {
                 Text(
-                    text = stringResource(R.string.branch_title, planet)
+                    text = stringResource(R.string.branch_title, planet.name)
                 )
             }
         }

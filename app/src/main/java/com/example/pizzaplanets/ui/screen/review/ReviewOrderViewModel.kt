@@ -7,7 +7,7 @@ import com.example.pizzaplanets.data.PlanetRepository
 import com.example.pizzaplanets.entity.Order
 import com.example.pizzaplanets.entity.Pizza
 import com.example.pizzaplanets.entity.Planet
-import com.example.pizzaplanets.entity.complex.OrderDetail
+import com.example.pizzaplanets.entity.result.OrderQueryResult
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -55,11 +55,12 @@ class ReviewOrderViewModel(
             "Cannot create the order, no menu data"
         }
         viewModelScope.launch {
-            val orderDetail = OrderDetail(
+            val orderDetail = OrderQueryResult(
                 order = Order(
                     planetId = planet.id
                 ),
-                pizzaList = pizzaList
+                planet = planet,
+                pizzaList = pizzaList,
             )
             orderRepository.createOrder(orderDetail)
         }

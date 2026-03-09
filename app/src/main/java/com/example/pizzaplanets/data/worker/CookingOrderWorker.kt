@@ -6,7 +6,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.pizzaplanets.COOKING_ORDER_DELAY_MILLIS
 import com.example.pizzaplanets.KEY_ORDER_ID
-import com.example.pizzaplanets.PRE_WORK_DELAY_MILLIS
 import com.example.pizzaplanets.data.local.OrderDao
 import com.example.pizzaplanets.entity.OrderStatus
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +24,7 @@ class CookingOrderWorker(
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {
             return@withContext try {
-                // update order status to CONFIRM
+                // update order status to COOKING
                 val orderId = inputData.getInt(KEY_ORDER_ID, -1)
                 require(orderId != -1) { Log.e(TAG, "Invalid input Order ID: $orderId") }
                 val order = orderDao.queryOrder(orderId).first()

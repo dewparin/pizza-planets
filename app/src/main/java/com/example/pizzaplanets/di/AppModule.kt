@@ -9,6 +9,7 @@ import com.example.pizzaplanets.data.PlanetRepository
 import com.example.pizzaplanets.data.local.OrderDao
 import com.example.pizzaplanets.data.local.PizzaPlanetsDatabase
 import com.example.pizzaplanets.data.local.PlanetDao
+import com.example.pizzaplanets.data.worker.CompleteOrderWorker
 import com.example.pizzaplanets.data.worker.ConfirmOrderWorker
 import com.example.pizzaplanets.data.worker.CookingOrderWorker
 import com.example.pizzaplanets.data.worker.DeliverOrderWorker
@@ -69,6 +70,13 @@ val appModule = module {
     }
     worker {
         DeliverOrderWorker(
+            ctx = get(),
+            params = get(),
+            orderDao = get(),
+        )
+    }
+    worker {
+        CompleteOrderWorker(
             ctx = get(),
             params = get(),
             orderDao = get(),

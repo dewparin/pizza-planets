@@ -6,6 +6,7 @@ import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.example.pizzaplanets.KEY_ORDER_ID
 import com.example.pizzaplanets.data.local.OrderDao
+import com.example.pizzaplanets.data.worker.CompleteOrderWorker
 import com.example.pizzaplanets.data.worker.ConfirmOrderWorker
 import com.example.pizzaplanets.data.worker.CookingOrderWorker
 import com.example.pizzaplanets.data.worker.DeliverOrderWorker
@@ -26,20 +27,25 @@ class OfflineOrderRepository(
 
     override suspend fun createOrder(orderDetail: OrderQueryResult): Int {
         val orderId = orderDao.createOrder(orderDetail)
+        val workInput = workDataOf(KEY_ORDER_ID to orderId)
         workManager
             .beginUniqueWork(
                 uniqueWorkName = "ORDER#$orderId",
                 existingWorkPolicy = ExistingWorkPolicy.REPLACE,
                 request = OneTimeWorkRequestBuilder<ConfirmOrderWorker>()
-                    .setInputData(workDataOf(KEY_ORDER_ID to orderId))
+                    .setInputData(workInput)
                     .build()
             ).then(
                 OneTimeWorkRequestBuilder<CookingOrderWorker>()
-                    .setInputData(workDataOf(KEY_ORDER_ID to orderId))
+                    .setInputData(workInput)
                     .build()
             ).then(
                 OneTimeWorkRequestBuilder<DeliverOrderWorker>()
-                    .setInputData(workDataOf(KEY_ORDER_ID to orderId))
+                    .setInputData(workInput)
+                    .build()
+            ).then(
+                OneTimeWorkRequestBuilder<CompleteOrderWorker>()
+                    .setInputData(workInput)
                     .build()
             ).apply {
                 enqueue()

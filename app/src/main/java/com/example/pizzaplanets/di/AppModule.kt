@@ -57,7 +57,8 @@ val appModule = module {
         ReviewOrderViewModel(
             planetId = params.get(),
             selectedPizzaIds = params.get(),
-            planetRepository = get()
+            planetRepository = get(),
+            orderRepository = get(),
         )
     }
 }

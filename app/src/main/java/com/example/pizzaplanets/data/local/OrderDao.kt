@@ -27,11 +27,13 @@ interface OrderDao {
     suspend fun insertOrderPizzaCrossRefs(crossRefs: List<OrderPizzaCrossRef>)
 
     @Transaction
-    suspend fun createOrder(orderDetail: OrderDetail) {
+    suspend fun createOrder(orderDetail: OrderDetail): Int {
         val orderId = insertOrder(orderDetail.order).toInt()
         val crossRefs = orderDetail.pizzaList.map { pizza ->
             OrderPizzaCrossRef(orderId, pizza.id)
         }
         insertOrderPizzaCrossRefs(crossRefs)
+
+        return orderId
     }
 }

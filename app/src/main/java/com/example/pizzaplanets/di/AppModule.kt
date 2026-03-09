@@ -1,8 +1,11 @@
 package com.example.pizzaplanets.di
 
 import androidx.room.Room
+import com.example.pizzaplanets.data.OfflineOrderRepository
 import com.example.pizzaplanets.data.OfflinePlanetRepository
+import com.example.pizzaplanets.data.OrderRepository
 import com.example.pizzaplanets.data.PlanetRepository
+import com.example.pizzaplanets.data.local.OrderDao
 import com.example.pizzaplanets.data.local.PizzaPlanetsDatabase
 import com.example.pizzaplanets.data.local.PlanetDao
 import com.example.pizzaplanets.ui.screen.home.HomeScreenViewModel
@@ -28,10 +31,16 @@ val appModule = module {
     single<PlanetDao> {
         get<PizzaPlanetsDatabase>().planetDao()
     }
+    single<OrderDao> {
+        get<PizzaPlanetsDatabase>().orderDao()
+    }
 
     // Repository
     single<PlanetRepository> {
         OfflinePlanetRepository(get())
+    }
+    single<OrderRepository> {
+        OfflineOrderRepository(get())
     }
 
     // ViewModel

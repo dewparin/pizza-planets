@@ -75,7 +75,9 @@ fun PizzaPlanetsNavHost(
                     navHostController.navigateUp()
                 },
                 navigateToOrderListScreen = {
-                    navHostController.navigate(route = OrderListRoute)
+                    navHostController.navigate(route = OrderListRoute) {
+                        popUpTo<HomeScreenRoute>()
+                    }
                 }
             )
         }

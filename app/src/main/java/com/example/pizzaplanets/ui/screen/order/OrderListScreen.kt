@@ -2,6 +2,12 @@
 
 package com.example.pizzaplanets.ui.screen.order
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -25,6 +31,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -32,8 +39,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
+import com.example.pizzaplanets.entity.OrderStatus
 import com.example.pizzaplanets.entity.result.OrderQueryResult
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.ui.screen.shared.mockOrderDetailList
@@ -140,11 +149,45 @@ private fun OrderDetailItem(
                 Text(
                     text = stringResource(orderInfo.orderStatus.statusStringRes()),
                     style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
                 )
+            }
+            if (orderInfo.orderStatus != OrderStatus.PENDING
+                && orderInfo.orderStatus != OrderStatus.COMPLETED
+                && orderInfo.orderStatus != OrderStatus.CANCELLED
+            ) {
+                StatusColorBox(orderInfo.orderStatus)
             }
         }
     }
 
+}
+
+@Composable
+fun StatusColorBox(
+    orderStatus: OrderStatus,
+    modifier: Modifier = Modifier,
+) {
+    val infiniteTransition = rememberInfiniteTransition(label = "backgroundTransition")
+
+    //Define the color child animation
+    val animatedColor by infiniteTransition.animateColor(
+        initialValue = Color.Transparent,
+        targetValue = orderStatus.statusColor(),
+        animationSpec = infiniteRepeatable(
+            //Define the speed (1000ms) and repeat behavior
+            animation = tween(1000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse // Smoothly swings back and forth
+        ),
+        label = "colorAnimation"
+    )
+    Box(
+        modifier = modifier
+            .size(dimensionResource(R.dimen.card_image_size))
+            .drawBehind {
+                drawRect(animatedColor)
+            }
+    )
 }
 
 @Composable

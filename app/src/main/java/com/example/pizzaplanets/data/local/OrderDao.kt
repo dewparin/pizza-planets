@@ -16,6 +16,7 @@ interface OrderDao {
     @Query(
         """
             SELECT * from orders
+            ORDER BY id DESC
         """
     )
     fun queryOrderList(): Flow<List<OrderQueryResult>>

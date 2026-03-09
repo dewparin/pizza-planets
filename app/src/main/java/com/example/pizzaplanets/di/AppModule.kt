@@ -1,6 +1,7 @@
 package com.example.pizzaplanets.di
 
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.example.pizzaplanets.data.OfflineOrderRepository
 import com.example.pizzaplanets.data.OfflinePlanetRepository
 import com.example.pizzaplanets.data.OrderRepository
@@ -43,15 +44,18 @@ val appModule = module {
         OfflinePlanetRepository(get())
     }
     single<OrderRepository> {
-        OfflineOrderRepository(get())
+        OfflineOrderRepository(get(), get())
     }
 
     // WorkManager
-    worker { params ->
+    single<WorkManager> {
+        WorkManager.getInstance(get())
+    }
+    worker {
         ConfirmOrderWorker(
-            ctx = params.get(),
-            params = params.get(),
-            orderDao = params.get(),
+            ctx = get(),
+            params = get(),
+            orderDao = get(),
         )
     }
 

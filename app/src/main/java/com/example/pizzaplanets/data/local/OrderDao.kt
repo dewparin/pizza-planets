@@ -23,6 +23,14 @@ interface OrderDao {
     )
     fun queryOrderList(): Flow<List<OrderQueryResult>>
 
+    @Query(
+        """
+            SELECT * FROM orders
+            WHERE id = :orderId
+        """
+    )
+    fun queryOrder(orderId: Int): Flow<Order?>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrder(order: Order): Long
 
@@ -41,5 +49,5 @@ interface OrderDao {
     }
 
     @Update
-    suspend fun updateOrderStatus(order: Order)
+    suspend fun updateOrder(order: Order)
 }

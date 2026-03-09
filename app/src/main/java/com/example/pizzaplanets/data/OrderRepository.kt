@@ -7,6 +7,7 @@ import androidx.work.workDataOf
 import com.example.pizzaplanets.KEY_ORDER_ID
 import com.example.pizzaplanets.data.local.OrderDao
 import com.example.pizzaplanets.data.worker.ConfirmOrderWorker
+import com.example.pizzaplanets.data.worker.CookingOrderWorker
 import com.example.pizzaplanets.entity.result.OrderQueryResult
 import kotlinx.coroutines.flow.Flow
 
@@ -29,6 +30,10 @@ class OfflineOrderRepository(
                 uniqueWorkName = "ORDER#$orderId",
                 existingWorkPolicy = ExistingWorkPolicy.REPLACE,
                 request = OneTimeWorkRequestBuilder<ConfirmOrderWorker>()
+                    .setInputData(workDataOf(KEY_ORDER_ID to orderId))
+                    .build()
+            ).then(
+                OneTimeWorkRequestBuilder<CookingOrderWorker>()
                     .setInputData(workDataOf(KEY_ORDER_ID to orderId))
                     .build()
             ).apply {

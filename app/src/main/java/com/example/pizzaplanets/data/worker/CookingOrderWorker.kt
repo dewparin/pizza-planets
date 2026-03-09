@@ -25,9 +25,6 @@ class CookingOrderWorker(
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {
             return@withContext try {
-                // simulate network request
-                delay(PRE_WORK_DELAY_MILLIS)
-
                 // update order status to CONFIRM
                 val orderId = inputData.getInt(KEY_ORDER_ID, -1)
                 require(orderId != -1) { Log.e(TAG, "Invalid input Order ID: $orderId") }
@@ -37,7 +34,7 @@ class CookingOrderWorker(
                     order.copy(orderStatus = OrderStatus.COOKING)
                 )
 
-                // simulate network response
+                // simulate cooking
                 delay(COOKING_ORDER_DELAY_MILLIS)
                 Result.success()
             } catch (throwable: Throwable) {

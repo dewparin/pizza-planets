@@ -1,6 +1,14 @@
 package com.example.pizzaplanets.entity
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Checklist
+import androidx.compose.material.icons.outlined.Motorcycle
+import androidx.compose.material.icons.outlined.SoupKitchen
+import androidx.compose.material.icons.outlined.Timelapse
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -36,12 +44,12 @@ enum class OrderStatus(val value: Int) {
      */
     fun statusStringRes(): Int =
         when (this) {
-            OrderStatus.PENDING -> R.string.order_status_pending
-            OrderStatus.CONFIRMED -> R.string.order_status_confirmed
-            OrderStatus.COOKING -> R.string.order_status_cooking
-            OrderStatus.DELIVERING -> R.string.order_status_delivering
-            OrderStatus.COMPLETED -> R.string.order_status_completed
-            OrderStatus.CANCELLED -> R.string.order_status_cancelled
+            PENDING -> R.string.order_status_pending
+            CONFIRMED -> R.string.order_status_confirmed
+            COOKING -> R.string.order_status_cooking
+            DELIVERING -> R.string.order_status_delivering
+            COMPLETED -> R.string.order_status_completed
+            CANCELLED -> R.string.order_status_cancelled
         }
 
     /**
@@ -49,12 +57,22 @@ enum class OrderStatus(val value: Int) {
      */
     fun statusColor(): Color =
         when (this) {
-            OrderStatus.CONFIRMED,
-            OrderStatus.COOKING,
-            OrderStatus.DELIVERING -> Color(0xFFFFF176) // Pastel Yellow
+            CONFIRMED,
+            COOKING,
+            DELIVERING -> Color(0xFFFFF176) // Pastel Yellow
 
-            OrderStatus.PENDING -> Color(0xFFCFD8DC)   // Pastel Blue-Gray
-            OrderStatus.COMPLETED -> Color(0xFFA5D6A7) // Pastel Green
-            OrderStatus.CANCELLED -> Color(0xFFEF9A9A) // Pastel Red
+            PENDING -> Color(0xFFCFD8DC)   // Pastel Blue-Gray
+            COMPLETED -> Color(0xFFA5D6A7) // Pastel Green
+            CANCELLED -> Color(0xFFEF9A9A) // Pastel Red
+        }
+
+    fun statusIcon(): ImageVector =
+        when (this) {
+            PENDING -> Icons.Outlined.Timelapse
+            CONFIRMED -> Icons.Outlined.Checklist
+            COOKING -> Icons.Outlined.SoupKitchen
+            DELIVERING -> Icons.Outlined.Motorcycle
+            COMPLETED -> Icons.Outlined.CheckCircle
+            CANCELLED -> Icons.Outlined.Cancel
         }
 }

@@ -10,6 +10,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -141,11 +143,20 @@ private fun OrderDetailItem(
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
                 )
-                Text(
-                    text = stringResource(orderInfo.orderStatus.statusStringRes()),
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold,
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
+                ) {
+                    Text(
+                        text = stringResource(orderInfo.orderStatus.statusStringRes()),
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Icon(
+                        imageVector = orderInfo.orderStatus.statusIcon(),
+                        contentDescription = orderInfo.orderStatus.toString(),
+                    )
+                }
             }
             if (orderInfo.orderStatus == OrderStatus.COMPLETED
                 || orderInfo.orderStatus == OrderStatus.CANCELLED

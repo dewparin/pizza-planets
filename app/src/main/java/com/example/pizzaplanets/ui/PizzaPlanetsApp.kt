@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -63,7 +64,9 @@ fun PizzaPlanetsTopAppBar(
                 IconButton(onClick = it) {
                     Icon(
                         imageVector = Icons.Outlined.ShoppingBasket,
-                        contentDescription = stringResource(R.string.goto_order_list_description)
+                        contentDescription = stringResource(R.string.goto_order_list_description),
+                        modifier = Modifier
+                            .scale(1.2f)
                     )
                 }
             }
@@ -91,6 +94,7 @@ fun PizzaPlanetsTopAppBarPreview() {
         PizzaPlanetsTopAppBar(
             title = stringResource(R.string.app_name),
             canNavigateBack = false,
+            navigateToOrderListScreen = {}
         )
     }
 }

@@ -3,9 +3,9 @@ package com.example.pizzaplanets.entity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Checklist
 import androidx.compose.material.icons.outlined.Motorcycle
 import androidx.compose.material.icons.outlined.SoupKitchen
+import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material.icons.outlined.Timelapse
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -69,7 +69,7 @@ enum class OrderStatus(val value: Int) {
     fun statusIcon(): ImageVector =
         when (this) {
             PENDING -> Icons.Outlined.Timelapse
-            CONFIRMED -> Icons.Outlined.Checklist
+            CONFIRMED -> Icons.Outlined.ThumbUp
             COOKING -> Icons.Outlined.SoupKitchen
             DELIVERING -> Icons.Outlined.Motorcycle
             COMPLETED -> Icons.Outlined.CheckCircle

@@ -10,7 +10,6 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -143,20 +142,11 @@ private fun OrderDetailItem(
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
                 )
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
-                ) {
-                    Text(
-                        text = stringResource(orderInfo.orderStatus.statusStringRes()),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                    )
-                    Icon(
-                        imageVector = orderInfo.orderStatus.statusIcon(),
-                        contentDescription = orderInfo.orderStatus.toString(),
-                    )
-                }
+                Text(
+                    text = stringResource(orderInfo.orderStatus.statusStringRes()),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                )
             }
             if (orderInfo.orderStatus == OrderStatus.COMPLETED
                 || orderInfo.orderStatus == OrderStatus.CANCELLED
@@ -185,7 +175,15 @@ fun StaticStatusBox(
                 )
             )
             .background(orderStatus.statusColor())
-    )
+    ) {
+        Icon(
+            imageVector = orderStatus.statusIcon(),
+            contentDescription = orderStatus.toString(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(dimensionResource(R.dimen.padding_medium))
+        )
+    }
 }
 
 @Composable
@@ -218,7 +216,15 @@ fun AnimatedStatusBox(
                     stopFraction to orderStatus.statusColor()
                 )
             )
-    )
+    ) {
+        Icon(
+            imageVector = orderStatus.statusIcon(),
+            contentDescription = orderStatus.toString(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(dimensionResource(R.dimen.padding_medium))
+        )
+    }
 }
 
 @Composable

@@ -28,23 +28,28 @@ class OfflineOrderRepository(
     override suspend fun createOrder(orderDetail: OrderQueryResult): Int {
         val orderId = orderDao.createOrder(orderDetail)
         val workInput = workDataOf(KEY_ORDER_ID to orderId)
+        val workId = "ORDER#$orderId"
         workManager
             .beginUniqueWork(
-                uniqueWorkName = "ORDER#$orderId",
+                uniqueWorkName = workId,
                 existingWorkPolicy = ExistingWorkPolicy.REPLACE,
                 request = OneTimeWorkRequestBuilder<ConfirmOrderWorker>()
+                    .addTag(workId)
                     .setInputData(workInput)
                     .build()
             ).then(
                 OneTimeWorkRequestBuilder<CookingOrderWorker>()
+                    .addTag(workId)
                     .setInputData(workInput)
                     .build()
             ).then(
                 OneTimeWorkRequestBuilder<DeliverOrderWorker>()
+                    .addTag(workId)
                     .setInputData(workInput)
                     .build()
             ).then(
                 OneTimeWorkRequestBuilder<CompleteOrderWorker>()
+                    .addTag(workId)
                     .setInputData(workInput)
                     .build()
             ).apply {

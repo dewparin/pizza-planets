@@ -18,6 +18,7 @@ roomCompiler = "2.8.4"
 koin-bom = "4.1.1"
 work_version = "2.11.1"
 mockkVersion = "1.14.9"
+kotlinx-coroutines-test = "1.20.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,6 +49,7 @@ koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
 koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager" }
 work-manager = { module = "androidx.work:work-runtime-ktx", version.ref = "work_version" }
 mockk = { module = "io.mockk:mockk-android", version.ref = "mockkVersion"}
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

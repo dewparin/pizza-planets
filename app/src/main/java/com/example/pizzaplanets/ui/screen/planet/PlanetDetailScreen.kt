@@ -29,10 +29,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
@@ -118,10 +120,13 @@ private fun PlanetDetailBody(
     ) {
         LazyColumn {
             item {
-                PlanetInfoHeader(planet)
+                PlanetCoverImage(planet)
             }
             item {
-                MenuTitle()
+                MenuTitle(
+                    modifier = Modifier
+                        .padding(top = dimensionResource(R.dimen.padding_small))
+                )
             }
             items(pizzaList) { pizza ->
                 PizzaMenuItem(
@@ -132,6 +137,13 @@ private fun PlanetDetailBody(
                     },
                     modifier = Modifier
                         .padding(dimensionResource(R.dimen.padding_small))
+                )
+            }
+            item {
+                PlanetInfo(
+                    planet = planet,
+                    modifier = Modifier
+                        .padding(top = dimensionResource(R.dimen.padding_medium))
                 )
             }
             item {
@@ -151,44 +163,18 @@ private fun PlanetDetailBody(
 }
 
 @Composable
-private fun PlanetInfoHeader(
+private fun PlanetCoverImage(
     planet: Planet,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        shadowElevation = dimensionResource(R.dimen.elevation_shadow),
-        tonalElevation = dimensionResource(R.dimen.elevation_tonal),
+    Image(
+        painter = painterResource(planet.getPlanetDrawableByCode()),
+        contentDescription = stringResource(R.string.planet_image_description),
+        contentScale = ContentScale.Crop,
         modifier = modifier
-    ) {
-        Column {
-            Image(
-                painter = painterResource(planet.getPlanetDrawableByCode()),
-                contentDescription = stringResource(R.string.planet_image_description),
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(dimensionResource(R.dimen.cover_image_size))
-            )
-            Column(
-                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
-                modifier = Modifier
-                    .padding(dimensionResource(R.dimen.padding_small))
-            ) {
-                Text(
-                    text = stringResource(R.string.branch_title, planet.name),
-                    style = MaterialTheme.typography.displayMedium,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    text = planet.description,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-            }
-        }
-    }
+            .fillMaxWidth()
+            .height(dimensionResource(R.dimen.cover_image_size))
+    )
 }
 
 @Composable
@@ -236,6 +222,46 @@ private fun PizzaMenuItem(
         }
     }
 
+}
+
+@Composable
+private fun PlanetInfo(
+    planet: Planet,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        tonalElevation = dimensionResource(R.dimen.elevation_tonal),
+        modifier = modifier
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
+            modifier = Modifier
+                .padding(
+                    start = dimensionResource(R.dimen.padding_small),
+                    top = dimensionResource(R.dimen.padding_small),
+                    end = dimensionResource(R.dimen.padding_small),
+                    bottom = dimensionResource(R.dimen.padding_large),
+                )
+        ) {
+            Text(
+                text = stringResource(R.string.branch_title, planet.name),
+                style = MaterialTheme.typography.displayMedium,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Text(
+                text = planet.description,
+                style = MaterialTheme.typography.bodyLarge,
+                // Dp.toSp() is only available inside a Density scope, so we use
+                // LocalDensity.current to provide that scope via with(...)
+                lineHeight = with(LocalDensity.current) { dimensionResource(R.dimen.text_line_height).toSp() },
+                textAlign = TextAlign.Justify,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = dimensionResource(R.dimen.padding_small))
+            )
+        }
+    }
 }
 
 @Composable

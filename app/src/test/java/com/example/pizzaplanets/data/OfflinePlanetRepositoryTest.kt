@@ -43,6 +43,14 @@ class OfflinePlanetRepositoryTest {
         assertEquals(emptyList<Planet>(), result)
     }
 
+    @Test(expected = RuntimeException::class)
+    fun getAllPlanets_databaseThrowsNonIOException_throwsException() = runTest {
+        every {
+            planetDao.queryAllPlanets()
+        } returns flow { throw RuntimeException("Database error") }
+
+        repository.getAllPlanets().first()
+    }
 
 }
 

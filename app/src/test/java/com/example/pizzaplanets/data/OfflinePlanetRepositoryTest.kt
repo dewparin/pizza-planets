@@ -6,9 +6,11 @@ import io.mockk.every
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
+import java.io.IOException
 
 class OfflinePlanetRepositoryTest {
 
@@ -16,7 +18,7 @@ class OfflinePlanetRepositoryTest {
     private val repository = OfflinePlanetRepository(planetDao)
 
     @Test
-    fun `getAllPlanets returns planets from dao`() = runTest {
+    fun getAllPlanets_returnsPlanetsFromDao() = runTest {
         every {
             planetDao.queryAllPlanets()
         } returns flowOf(mockPlanets)
@@ -26,6 +28,19 @@ class OfflinePlanetRepositoryTest {
             .first()
 
         assertEquals(mockPlanets, result)
+    }
+
+    @Test
+    fun getAllPlanets_databaseThrowsIOException_returnsEmptyList() = runTest {
+        every {
+            planetDao.queryAllPlanets()
+        } returns flow { throw IOException() }
+
+        val result = repository
+            .getAllPlanets()
+            .first()
+
+        assertEquals(emptyList<Planet>(), result)
     }
 
 

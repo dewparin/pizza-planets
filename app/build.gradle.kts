@@ -39,6 +39,12 @@ android {
     buildFeatures {
         compose = true
     }
+    testOptions {
+        unitTests {
+            // Allow LogCat to return default values in unit tests instead of throwing "not mocked" exceptions
+            isReturnDefaultValues = true
+        }
+    }
 }
 
 dependencies {

@@ -119,7 +119,7 @@ private fun PlanetItem(
             ) {
                 Text(
                     planet.name,
-                    style = MaterialTheme.typography.headlineLarge,
+                    style = MaterialTheme.typography.displayMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -128,7 +128,7 @@ private fun PlanetItem(
                         R.string.planet_duration,
                         planet.durationToDisplayString(),
                     ),
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.labelSmall
                 )
             }
             Text(

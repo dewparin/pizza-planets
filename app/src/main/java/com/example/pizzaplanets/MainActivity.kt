@@ -12,7 +12,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PizzaPlanetsTheme {
+            PizzaPlanetsTheme(
+                dynamicColor = false,
+            ) {
                 PizzaPlanetsApp()
             }
         }

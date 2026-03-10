@@ -141,7 +141,7 @@ fun Header(
 ) {
     Text(
         text = stringResource(R.string.review_your_order),
-        style = MaterialTheme.typography.headlineSmall,
+        style = MaterialTheme.typography.displayMedium,
         fontWeight = FontWeight.Bold,
         modifier = modifier
             .padding(bottom = dimensionResource(R.dimen.padding_small))
@@ -167,18 +167,18 @@ fun Address(
         ) {
             Text(
                 text = stringResource(R.string.branch_title, planet.name),
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.displayMedium,
                 fontWeight = FontWeight.Bold,
             )
             Row {
                 Text(
                     "${stringResource(R.string.deliver_to)} ",
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
                     stringResource(R.string.destination_address),
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.labelSmall,
                 )
             }
         }
@@ -191,7 +191,7 @@ private fun MenuTitle(
 ) {
     Text(
         text = stringResource(R.string.menu),
-        style = MaterialTheme.typography.bodyLarge,
+        style = MaterialTheme.typography.displayMedium,
         fontWeight = FontWeight.Bold,
         modifier = modifier
     )
@@ -214,7 +214,7 @@ private fun PizzaMenuItem(
         )
         Text(
             text = pizza.name,
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.labelSmall,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
@@ -240,7 +240,8 @@ private fun ConfirmButton(
                 .padding(dimensionResource(R.dimen.padding_small))
         ) {
             Text(
-                text = stringResource(R.string.confirm)
+                text = stringResource(R.string.confirm),
+                style = MaterialTheme.typography.labelSmall,
             )
         }
     }

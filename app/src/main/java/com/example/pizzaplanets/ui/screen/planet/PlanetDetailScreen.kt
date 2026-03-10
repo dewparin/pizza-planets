@@ -176,7 +176,7 @@ private fun PlanetInfoHeader(
             ) {
                 Text(
                     text = stringResource(R.string.branch_title, planet.name),
-                    style = MaterialTheme.typography.headlineLarge,
+                    style = MaterialTheme.typography.displayMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -197,7 +197,7 @@ private fun MenuTitle(
 ) {
     Text(
         text = stringResource(R.string.menu),
-        style = MaterialTheme.typography.headlineSmall,
+        style = MaterialTheme.typography.displayMedium,
         fontWeight = FontWeight.Bold,
         modifier = modifier
             .padding(dimensionResource(R.dimen.padding_small))
@@ -223,7 +223,7 @@ private fun PizzaMenuItem(
             ) {
                 Text(
                     text = pizza.name,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.displayMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -257,7 +257,8 @@ private fun ReviewButton(
                 .padding(dimensionResource(R.dimen.padding_small))
         ) {
             Text(
-                text = stringResource(R.string.review_order)
+                text = stringResource(R.string.review_order),
+                style = MaterialTheme.typography.labelSmall,
             )
         }
     }

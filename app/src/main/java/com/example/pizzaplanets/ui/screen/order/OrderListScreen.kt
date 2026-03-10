@@ -135,16 +135,16 @@ private fun OrderDetailItem(
             ) {
                 Text(
                     text = stringResource(R.string.branch_title, planet.name),
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.displayMedium,
                 )
                 Text(
                     text = stringResource(R.string.order_menu_count, pizzaList.size),
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
                 )
                 Text(
                     text = stringResource(orderInfo.orderStatus.statusStringRes()),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.Bold,
                 )
             }

@@ -38,6 +38,7 @@ fun PizzaPlanetsTopAppBar(
     title: String,
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
+    showTitleIcon: Boolean = false,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     navigateUp: () -> Unit = {},
     navigateToOrderListScreen: (() -> Unit)? = null,
@@ -55,10 +56,12 @@ fun PizzaPlanetsTopAppBar(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-                Icon(
-                    imageVector = Icons.Outlined.RocketLaunch,
-                    contentDescription = null,
-                )
+                if (showTitleIcon) {
+                    Icon(
+                        imageVector = Icons.Outlined.RocketLaunch,
+                        contentDescription = null,
+                    )
+                }
             }
         },
         actions = {
@@ -96,6 +99,7 @@ fun PizzaPlanetsTopAppBarPreview() {
         PizzaPlanetsTopAppBar(
             title = stringResource(R.string.app_name),
             canNavigateBack = false,
+            showTitleIcon = true,
             navigateToOrderListScreen = {}
         )
     }

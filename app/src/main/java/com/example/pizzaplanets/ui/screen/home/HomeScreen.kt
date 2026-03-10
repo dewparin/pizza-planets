@@ -54,6 +54,7 @@ fun HomeScreen(
             PizzaPlanetsTopAppBar(
                 title = stringResource(R.string.app_name),
                 canNavigateBack = false,
+                showTitleIcon = true,
                 scrollBehavior = scrollBehavior,
                 navigateToOrderListScreen = navigateToOrderListScreen,
             )

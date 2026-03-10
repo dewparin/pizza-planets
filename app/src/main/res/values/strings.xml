@@ -10,7 +10,8 @@
     <string name="review_order">Review Order</string>
     <string name="checkout">Checkout</string>
     <string name="review_your_order">Review Your Order</string>
-    <string name="deliver_to">Deliver To:</string>
+    <string name="deliver_from">From</string>
+    <string name="deliver_to">Deliver To</string>
     <string name="destination_address">Bangkok Space Terminal</string>
     <string name="confirm">Confirm</string>
     <string name="order_list">Your Orders</string>

@@ -2,6 +2,7 @@
 
 package com.example.pizzaplanets.ui.screen.review
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,9 +17,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.LocalPizza
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -120,7 +124,18 @@ fun ReviewOrderBody(
             }
             item {
                 AddressInfo(
-                    planet = planet,
+                    title = stringResource(R.string.deliver_from),
+                    addressName = stringResource(R.string.branch_title, planet.name),
+                    image = planet.getPlanetDrawableByCode(),
+                    modifier = Modifier
+                        .padding(bottom = dimensionResource(R.dimen.padding_large))
+                )
+            }
+            item {
+                AddressInfo(
+                    title = stringResource(R.string.deliver_to),
+                    addressName = stringResource(R.string.destination_address),
+                    image = R.drawable.bangkok,
                     modifier = Modifier
                         .padding(bottom = dimensionResource(R.dimen.padding_large))
                 )
@@ -156,49 +171,50 @@ fun Header(
 
 @Composable
 fun AddressInfo(
-    planet: Planet,
+    title: String,
+    addressName: String,
+    @DrawableRes image: Int,
     modifier: Modifier = Modifier,
 ) {
-    Card(
-        shape = RoundedCornerShape(dimensionResource(R.dimen.padding_small)),
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Column(
-            verticalArrangement = Arrangement.SpaceBetween,
+    Column(modifier) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier
+                .padding(
+                    bottom = dimensionResource(R.dimen.padding_small),
+                )
+        )
+        Card(
+            shape = RoundedCornerShape(dimensionResource(R.dimen.padding_small)),
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
-                modifier = Modifier
-                    .padding(dimensionResource(R.dimen.padding_small))
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
-                    text = stringResource(R.string.branch_title, planet.name),
+                    text = addressName,
                     style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .padding(
+                            start = dimensionResource(R.dimen.padding_small),
+                            top = dimensionResource(R.dimen.padding_medium),
+                            end = dimensionResource(R.dimen.padding_small),
+                            bottom = dimensionResource(R.dimen.padding_medium),
+                        )
                 )
-                Row {
-                    Text(
-                        "${stringResource(R.string.deliver_to)} ",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                    )
-                    Text(
-                        stringResource(R.string.destination_address),
-                        style = MaterialTheme.typography.labelSmall,
-                    )
-                }
+                Image(
+                    painter = painterResource(image),
+                    contentDescription = stringResource(R.string.planet_image_description),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(dimensionResource(R.dimen.cover_image_small_size))
+                )
             }
-            Image(
-                painter = painterResource(planet.getPlanetDrawableByCode()),
-                contentDescription = stringResource(R.string.planet_image_description),
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(dimensionResource(R.dimen.cover_image_small_size))
-            )
         }
     }
 }
@@ -207,12 +223,18 @@ fun AddressInfo(
 private fun MenuTitle(
     modifier: Modifier = Modifier,
 ) {
-    Text(
-        text = stringResource(R.string.menu),
-        style = MaterialTheme.typography.displayMedium,
-        fontWeight = FontWeight.Bold,
-        modifier = modifier
-    )
+    Row(modifier) {
+        Text(
+            text = stringResource(R.string.menu),
+            style = MaterialTheme.typography.displayMedium,
+            fontWeight = FontWeight.Bold,
+            modifier = modifier
+        )
+        Icon(
+            imageVector = Icons.Outlined.LocalPizza,
+            contentDescription = null,
+        )
+    }
 }
 
 @Composable

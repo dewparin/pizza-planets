@@ -2,6 +2,7 @@
 
 package com.example.pizzaplanets.ui.screen.review
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -28,7 +30,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -42,6 +46,7 @@ import com.example.pizzaplanets.ui.screen.shared.NoPlanet
 import com.example.pizzaplanets.ui.screen.shared.mockPizzaList
 import com.example.pizzaplanets.ui.screen.shared.mockPlanet
 import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
+import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -114,7 +119,7 @@ fun ReviewOrderBody(
                 )
             }
             item {
-                Address(
+                AddressInfo(
                     planet = planet,
                     modifier = Modifier
                         .padding(bottom = dimensionResource(R.dimen.padding_large))
@@ -150,37 +155,50 @@ fun Header(
 }
 
 @Composable
-fun Address(
+fun AddressInfo(
     planet: Planet,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
+    Card(
         shape = RoundedCornerShape(dimensionResource(R.dimen.padding_small)),
         modifier = modifier
             .fillMaxWidth()
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
-            modifier = Modifier
-                .padding(dimensionResource(R.dimen.padding_small))
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(
-                text = stringResource(R.string.branch_title, planet.name),
-                style = MaterialTheme.typography.displayMedium,
-                fontWeight = FontWeight.Bold,
-            )
-            Row {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
+                modifier = Modifier
+                    .padding(dimensionResource(R.dimen.padding_small))
+            ) {
                 Text(
-                    "${stringResource(R.string.deliver_to)} ",
-                    style = MaterialTheme.typography.labelSmall,
+                    text = stringResource(R.string.branch_title, planet.name),
+                    style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .fillMaxWidth()
                 )
-                Text(
-                    stringResource(R.string.destination_address),
-                    style = MaterialTheme.typography.labelSmall,
-                )
+                Row {
+                    Text(
+                        "${stringResource(R.string.deliver_to)} ",
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Text(
+                        stringResource(R.string.destination_address),
+                        style = MaterialTheme.typography.labelSmall,
+                    )
+                }
             }
+            Image(
+                painter = painterResource(planet.getPlanetDrawableByCode()),
+                contentDescription = stringResource(R.string.planet_image_description),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(dimensionResource(R.dimen.cover_image_small_size))
+            )
         }
     }
 }

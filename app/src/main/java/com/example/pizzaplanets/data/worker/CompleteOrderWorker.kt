@@ -24,9 +24,9 @@ class CompleteOrderWorker(
             return@withContext try {
                 // update order status
                 val orderId = inputData.getInt(KEY_ORDER_ID, -1)
-                require(orderId != -1) { Log.e(TAG, "Invalid input Order ID: $orderId") }
+                require(orderId != -1) { "Invalid input Order ID: $orderId" }
                 val order = orderDao.queryOrder(orderId).first()
-                require(order != null) { Log.e(TAG, "No order with id: $orderId") }
+                require(order != null) { "No order with id: $orderId" }
                 orderDao.updateOrder(
                     order.copy(orderStatus = OrderStatus.COMPLETED)
                 )

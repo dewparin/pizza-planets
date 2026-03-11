@@ -2,6 +2,11 @@
 
 The Pizza Planets Android application.
 
+![Home Screen](docs/screenshots/home_screen.png)
+![Planet Detail Screen](docs/screenshots/planet_detail.png)
+![Order Summary Screen](docs/screenshots/order_summary.png)
+![Order List Screen](docs/screenshots/order_list.png)
+
 ## Commands
 
 ```bash

@@ -36,7 +36,7 @@ enum class OrderStatus(val value: Int) {
     ;
 
     companion object {
-        fun fromValue(value: Int) = entries.first { it.value == value }
+        fun fromValue(value: Int) = entries.firstOrNull { it.value == value } ?: OrderStatus.PENDING
     }
 
     /**

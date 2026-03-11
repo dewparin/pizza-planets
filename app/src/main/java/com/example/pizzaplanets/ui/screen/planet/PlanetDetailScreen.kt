@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,6 +41,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
 import com.example.pizzaplanets.entity.Pizza
 import com.example.pizzaplanets.entity.Planet
+import com.example.pizzaplanets.qc.TEST_TAG_PLANET_DETAIL_SCREEN_MENU_CHECKBOX
+import com.example.pizzaplanets.qc.TEST_TAG_PLANET_DETAIL_SCREEN_REVIEW_ORDER_BUTTON
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.ui.screen.shared.NoPlanet
 import com.example.pizzaplanets.ui.screen.shared.mockPizzaList
@@ -215,7 +218,11 @@ private fun PizzaMenuItem(
                 )
                 Checkbox(
                     checked = checked,
-                    onCheckedChange = { onSelectionUpdate(it) }
+                    onCheckedChange = { onSelectionUpdate(it) },
+                    modifier = Modifier
+                        .testTag(
+                            TEST_TAG_PLANET_DETAIL_SCREEN_MENU_CHECKBOX + pizza.id
+                        )
                 )
             }
             // TODO: add menu description expanded area
@@ -278,6 +285,7 @@ private fun ReviewButton(
             enabled = enabled,
             onClick = onClick,
             modifier = Modifier
+                .testTag(TEST_TAG_PLANET_DETAIL_SCREEN_REVIEW_ORDER_BUTTON)
                 .fillMaxWidth()
                 .height(dimensionResource(R.dimen.height_review_order_button))
                 .padding(dimensionResource(R.dimen.padding_small))

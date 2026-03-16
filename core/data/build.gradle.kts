@@ -31,16 +31,20 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    testOptions {
+        unitTests {
+            // Allow LogCat to return default values in unit tests instead of throwing "not mocked" exceptions
+            isReturnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
-    implementation(libs.koin.androidx.workmanager)
     implementation(libs.work.manager)
 
     testImplementation(libs.junit)

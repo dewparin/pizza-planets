@@ -48,6 +48,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui"))
     implementation(project(":data"))
 
     implementation(libs.kotlinx.serialization.json)

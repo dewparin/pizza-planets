@@ -39,15 +39,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
+import com.example.pizzaplanets.core.ui.screen.NoPlanet
+import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
 import com.example.pizzaplanets.data.entity.Pizza
 import com.example.pizzaplanets.data.entity.Planet
 import com.example.pizzaplanets.qc.TEST_TAG_PLANET_DETAIL_SCREEN_MENU_CHECKBOX
 import com.example.pizzaplanets.qc.TEST_TAG_PLANET_DETAIL_SCREEN_REVIEW_ORDER_BUTTON
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
-import com.example.pizzaplanets.ui.screen.shared.NoPlanet
 import com.example.pizzaplanets.ui.screen.shared.mockPizzaList
 import com.example.pizzaplanets.ui.screen.shared.mockPlanet
-import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
 import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf

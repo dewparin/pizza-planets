@@ -26,7 +26,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.pizzaplanets.R
 import com.example.pizzaplanets.ui.navigation.PizzaPlanetsNavHost
-import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
+import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
 
 @Composable
 fun PizzaPlanetsApp(navHostController: NavHostController = rememberNavController()) {

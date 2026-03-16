@@ -26,3 +26,4 @@ rootProject.name = "Pizza Planets"
 include(":app")
 include(":data")
 include(":core:ui")
+include(":feature:food")

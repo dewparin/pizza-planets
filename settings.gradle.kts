@@ -24,5 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Pizza Planets"
 include(":app")
-include(":core:data")
 include(":data")

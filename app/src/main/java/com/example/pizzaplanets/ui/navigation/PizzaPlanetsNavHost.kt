@@ -6,10 +6,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.pizzaplanets.ui.screen.home.HomeScreen
-import com.example.pizzaplanets.ui.screen.order.OrderListScreen
-import com.example.pizzaplanets.ui.screen.planet.PlanetDetailScreen
-import com.example.pizzaplanets.ui.screen.review.ReviewOrderScreen
+import com.example.pizzaplanets.food.screen.home.HomeScreen
+import com.example.pizzaplanets.food.screen.order.OrderListScreen
+import com.example.pizzaplanets.food.screen.planet.PlanetDetailScreen
+import com.example.pizzaplanets.food.screen.review.ReviewOrderScreen
 import kotlinx.serialization.Serializable
 
 @Serializable

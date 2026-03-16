@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.pizzaplanets.ui.PizzaPlanetsApp
-import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
+import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

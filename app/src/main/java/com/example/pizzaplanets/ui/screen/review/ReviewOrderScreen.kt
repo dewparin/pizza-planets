@@ -43,11 +43,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pizzaplanets.R
-import com.example.pizzaplanets.core.ui.screen.NoPlanet
 import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
+import com.example.pizzaplanets.core.ui.widget.NoPlanet
+import com.example.pizzaplanets.core.ui.widget.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.data.entity.Pizza
 import com.example.pizzaplanets.data.entity.Planet
-import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.ui.screen.shared.mockPizzaList
 import com.example.pizzaplanets.ui.screen.shared.mockPlanet
 import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode

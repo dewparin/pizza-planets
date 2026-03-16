@@ -45,7 +45,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
 import com.example.pizzaplanets.data.entity.OrderStatus
 import com.example.pizzaplanets.data.entity.result.OrderQueryResult
-import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
+import com.example.pizzaplanets.core.ui.widget.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.ui.screen.shared.mockOrderDetailList
 import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
 import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode

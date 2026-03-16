@@ -42,17 +42,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.pizzaplanets.R
+import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
+import com.example.pizzaplanets.core.ui.widget.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.data.entity.OrderStatus
 import com.example.pizzaplanets.data.entity.result.OrderQueryResult
-import com.example.pizzaplanets.core.ui.widget.PizzaPlanetsTopAppBar
-import com.example.pizzaplanets.ui.screen.shared.mockOrderDetailList
-import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
-import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode
-import com.example.pizzaplanets.ui.utils.statusColor
-import com.example.pizzaplanets.ui.utils.statusIcon
-import com.example.pizzaplanets.ui.utils.statusStringRes
+import com.example.pizzaplanets.food.R
+import com.example.pizzaplanets.food.screen.shared.mockOrderDetailList
+import com.example.pizzaplanets.food.utils.getPlanetDrawableByCode
+import com.example.pizzaplanets.food.utils.statusColor
+import com.example.pizzaplanets.food.utils.statusIcon
+import com.example.pizzaplanets.food.utils.statusStringRes
 import org.koin.compose.viewmodel.koinViewModel
+import com.example.pizzaplanets.core.ui.R as coreR
 
 @Composable
 fun OrderListScreen(
@@ -98,7 +99,7 @@ private fun OrderListBody(
                 OrderDetailItem(
                     it,
                     modifier = Modifier
-                        .padding(dimensionResource(R.dimen.padding_small))
+                        .padding(dimensionResource(coreR.dimen.padding_small))
                 )
             }
         }
@@ -126,14 +127,14 @@ private fun OrderDetailItem(
                 contentDescription = stringResource(R.string.planet_image_description),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(dimensionResource(R.dimen.card_image_size))
+                    .size(dimensionResource(coreR.dimen.card_image_size))
             )
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
                     .padding(
-                        start = dimensionResource(R.dimen.padding_small)
+                        start = dimensionResource(coreR.dimen.padding_small)
                     )
             ) {
                 Text(
@@ -143,7 +144,7 @@ private fun OrderDetailItem(
                 Text(
                     text = stringResource(R.string.order_menu_count, pizzaList.size),
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
+                    modifier = Modifier.padding(bottom = dimensionResource(coreR.dimen.padding_small))
                 )
                 Text(
                     text = stringResource(orderInfo.orderStatus.statusStringRes()),
@@ -170,11 +171,11 @@ fun StaticStatusBox(
 ) {
     Box(
         modifier = modifier
-            .size(dimensionResource(R.dimen.card_image_size))
+            .size(dimensionResource(coreR.dimen.card_image_size))
             .clip(
                 RoundedCornerShape(
-                    topStart = dimensionResource(R.dimen.padding_small),
-                    bottomStart = dimensionResource(R.dimen.padding_small),
+                    topStart = dimensionResource(coreR.dimen.padding_small),
+                    bottomStart = dimensionResource(coreR.dimen.padding_small),
                 )
             )
             .background(orderStatus.statusColor())
@@ -184,7 +185,7 @@ fun StaticStatusBox(
             contentDescription = orderStatus.toString(),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(dimensionResource(R.dimen.padding_medium))
+                .padding(dimensionResource(coreR.dimen.padding_medium))
         )
     }
 }
@@ -206,11 +207,11 @@ fun AnimatedStatusBox(
     )
     Box(
         modifier = modifier
-            .size(dimensionResource(R.dimen.card_image_size))
+            .size(dimensionResource(coreR.dimen.card_image_size))
             .clip(
                 RoundedCornerShape(
-                    topStart = dimensionResource(R.dimen.padding_small),
-                    bottomStart = dimensionResource(R.dimen.padding_small),
+                    topStart = dimensionResource(coreR.dimen.padding_small),
+                    bottomStart = dimensionResource(coreR.dimen.padding_small),
                 )
             )
             .background(
@@ -225,7 +226,7 @@ fun AnimatedStatusBox(
             contentDescription = orderStatus.toString(),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(dimensionResource(R.dimen.padding_medium))
+                .padding(dimensionResource(coreR.dimen.padding_medium))
         )
     }
 }
@@ -238,7 +239,7 @@ private fun NoOrder(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .fillMaxSize()
-            .padding(dimensionResource(R.dimen.padding_medium))
+            .padding(dimensionResource(coreR.dimen.padding_medium))
     ) {
         Text(stringResource(R.string.no_order))
     }

@@ -38,17 +38,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.pizzaplanets.R
+import com.example.pizzaplanets.core.ui.R as coreR
 import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
 import com.example.pizzaplanets.core.ui.widget.NoPlanet
 import com.example.pizzaplanets.core.ui.widget.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.data.entity.Pizza
 import com.example.pizzaplanets.data.entity.Planet
-import com.example.pizzaplanets.qc.TEST_TAG_PLANET_DETAIL_SCREEN_MENU_CHECKBOX
-import com.example.pizzaplanets.qc.TEST_TAG_PLANET_DETAIL_SCREEN_REVIEW_ORDER_BUTTON
-import com.example.pizzaplanets.ui.screen.shared.mockPizzaList
-import com.example.pizzaplanets.ui.screen.shared.mockPlanet
-import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode
+import com.example.pizzaplanets.food.R
+import com.example.pizzaplanets.food.qc.TEST_TAG_PLANET_DETAIL_SCREEN_MENU_CHECKBOX
+import com.example.pizzaplanets.food.qc.TEST_TAG_PLANET_DETAIL_SCREEN_REVIEW_ORDER_BUTTON
+import com.example.pizzaplanets.food.screen.shared.mockPizzaList
+import com.example.pizzaplanets.food.screen.shared.mockPlanet
+import com.example.pizzaplanets.food.utils.getPlanetDrawableByCode
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -73,7 +74,7 @@ fun PlanetDetailScreen(
     Scaffold(
         topBar = {
             PizzaPlanetsTopAppBar(
-                title = planet?.name ?: stringResource(R.string.app_name),
+                title = planet?.name ?: stringResource(coreR.string.app_name),
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 navigateUp = navigateBack,
@@ -128,7 +129,7 @@ private fun PlanetDetailBody(
             item {
                 MenuTitle(
                     modifier = Modifier
-                        .padding(top = dimensionResource(R.dimen.padding_small))
+                        .padding(top = dimensionResource(coreR.dimen.padding_small))
                 )
             }
             items(pizzaList) { pizza ->
@@ -139,20 +140,20 @@ private fun PlanetDetailBody(
                         onMenuSelectionUpdate(pizza.id, it)
                     },
                     modifier = Modifier
-                        .padding(dimensionResource(R.dimen.padding_small))
+                        .padding(dimensionResource(coreR.dimen.padding_small))
                 )
             }
             item {
                 PlanetInfo(
                     planet = planet,
                     modifier = Modifier
-                        .padding(top = dimensionResource(R.dimen.padding_medium))
+                        .padding(top = dimensionResource(coreR.dimen.padding_medium))
                 )
             }
             item {
                 Spacer(
                     modifier = Modifier
-                        .height(dimensionResource(R.dimen.height_list_bottom_offset))
+                        .height(dimensionResource(coreR.dimen.height_list_bottom_offset))
                 )
             }
         }
@@ -176,7 +177,7 @@ private fun PlanetCoverImage(
         contentScale = ContentScale.Crop,
         modifier = modifier
             .fillMaxWidth()
-            .height(dimensionResource(R.dimen.cover_image_size))
+            .height(dimensionResource(coreR.dimen.cover_image_size))
     )
 }
 
@@ -189,7 +190,7 @@ private fun MenuTitle(
         style = MaterialTheme.typography.displayMedium,
         fontWeight = FontWeight.Bold,
         modifier = modifier
-            .padding(dimensionResource(R.dimen.padding_small))
+            .padding(dimensionResource(coreR.dimen.padding_small))
     )
 }
 
@@ -206,9 +207,9 @@ private fun PizzaMenuItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .height(dimensionResource(R.dimen.height_pizza_menu))
+                    .height(dimensionResource(coreR.dimen.height_pizza_menu))
                     .fillMaxWidth()
-                    .padding(dimensionResource(R.dimen.padding_small))
+                    .padding(dimensionResource(coreR.dimen.padding_small))
             ) {
                 Text(
                     text = pizza.name,
@@ -237,17 +238,17 @@ private fun PlanetInfo(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        tonalElevation = dimensionResource(R.dimen.elevation_tonal),
+        tonalElevation = dimensionResource(coreR.dimen.elevation_tonal),
         modifier = modifier
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(coreR.dimen.padding_medium)),
             modifier = Modifier
                 .padding(
-                    start = dimensionResource(R.dimen.padding_small),
-                    top = dimensionResource(R.dimen.padding_small),
-                    end = dimensionResource(R.dimen.padding_small),
-                    bottom = dimensionResource(R.dimen.padding_large),
+                    start = dimensionResource(coreR.dimen.padding_small),
+                    top = dimensionResource(coreR.dimen.padding_small),
+                    end = dimensionResource(coreR.dimen.padding_small),
+                    bottom = dimensionResource(coreR.dimen.padding_large),
                 )
         ) {
             Text(
@@ -261,11 +262,11 @@ private fun PlanetInfo(
                 style = MaterialTheme.typography.bodyLarge,
                 // Dp.toSp() is only available inside a Density scope, so we use
                 // LocalDensity.current to provide that scope via with(...)
-                lineHeight = with(LocalDensity.current) { dimensionResource(R.dimen.text_line_height).toSp() },
+                lineHeight = with(LocalDensity.current) { dimensionResource(coreR.dimen.text_line_height).toSp() },
                 textAlign = TextAlign.Justify,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = dimensionResource(R.dimen.padding_small))
+                    .padding(horizontal = dimensionResource(coreR.dimen.padding_small))
             )
         }
     }
@@ -287,8 +288,8 @@ private fun ReviewButton(
             modifier = Modifier
                 .testTag(TEST_TAG_PLANET_DETAIL_SCREEN_REVIEW_ORDER_BUTTON)
                 .fillMaxWidth()
-                .height(dimensionResource(R.dimen.height_review_order_button))
-                .padding(dimensionResource(R.dimen.padding_small))
+                .height(dimensionResource(coreR.dimen.height_review_order_button))
+                .padding(dimensionResource(coreR.dimen.padding_small))
         ) {
             Text(
                 text = stringResource(R.string.review_order),

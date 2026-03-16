@@ -42,17 +42,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.pizzaplanets.food.R
 import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
 import com.example.pizzaplanets.core.ui.widget.NoPlanet
 import com.example.pizzaplanets.core.ui.widget.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.data.entity.Pizza
 import com.example.pizzaplanets.data.entity.Planet
+import com.example.pizzaplanets.food.R
 import com.example.pizzaplanets.food.screen.shared.mockPizzaList
 import com.example.pizzaplanets.food.screen.shared.mockPlanet
 import com.example.pizzaplanets.food.utils.getPlanetDrawableByCode
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
+import com.example.pizzaplanets.core.ui.R as coreR
 
 @Composable
 fun ReviewOrderScreen(
@@ -114,12 +115,12 @@ fun ReviewOrderBody(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(dimensionResource(R.dimen.padding_small))
+                .padding(dimensionResource(coreR.dimen.padding_small))
         ) {
             item {
                 Header(
                     modifier = Modifier
-                        .padding(bottom = dimensionResource(R.dimen.padding_small))
+                        .padding(bottom = dimensionResource(coreR.dimen.padding_small))
                 )
             }
             item {
@@ -128,7 +129,7 @@ fun ReviewOrderBody(
                     addressName = stringResource(R.string.branch_title, planet.name),
                     image = planet.getPlanetDrawableByCode(),
                     modifier = Modifier
-                        .padding(bottom = dimensionResource(R.dimen.padding_large))
+                        .padding(bottom = dimensionResource(coreR.dimen.padding_large))
                 )
             }
             item {
@@ -137,7 +138,7 @@ fun ReviewOrderBody(
                     addressName = stringResource(R.string.destination_address),
                     image = R.drawable.bangkok,
                     modifier = Modifier
-                        .padding(bottom = dimensionResource(R.dimen.padding_large))
+                        .padding(bottom = dimensionResource(coreR.dimen.padding_large))
                 )
             }
             item {
@@ -164,7 +165,7 @@ fun Header(
         style = MaterialTheme.typography.displayMedium,
         fontWeight = FontWeight.Bold,
         modifier = modifier
-            .padding(bottom = dimensionResource(R.dimen.padding_small))
+            .padding(bottom = dimensionResource(coreR.dimen.padding_small))
     )
 
 }
@@ -182,11 +183,11 @@ fun AddressInfo(
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier
                 .padding(
-                    bottom = dimensionResource(R.dimen.padding_small),
+                    bottom = dimensionResource(coreR.dimen.padding_small),
                 )
         )
         Card(
-            shape = RoundedCornerShape(dimensionResource(R.dimen.padding_small)),
+            shape = RoundedCornerShape(dimensionResource(coreR.dimen.padding_small)),
             modifier = Modifier
                 .fillMaxWidth()
         ) {
@@ -200,10 +201,10 @@ fun AddressInfo(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = dimensionResource(R.dimen.padding_small),
-                            top = dimensionResource(R.dimen.padding_medium),
-                            end = dimensionResource(R.dimen.padding_small),
-                            bottom = dimensionResource(R.dimen.padding_medium),
+                            start = dimensionResource(coreR.dimen.padding_small),
+                            top = dimensionResource(coreR.dimen.padding_medium),
+                            end = dimensionResource(coreR.dimen.padding_small),
+                            bottom = dimensionResource(coreR.dimen.padding_medium),
                         )
                 )
                 Image(
@@ -212,7 +213,7 @@ fun AddressInfo(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(dimensionResource(R.dimen.cover_image_small_size))
+                        .height(dimensionResource(coreR.dimen.cover_image_small_size))
                 )
             }
         }
@@ -245,7 +246,7 @@ private fun PizzaMenuItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .padding(horizontal = dimensionResource(R.dimen.padding_small))
+            .padding(horizontal = dimensionResource(coreR.dimen.padding_small))
     ) {
         Box(
             modifier = Modifier
@@ -258,7 +259,7 @@ private fun PizzaMenuItem(
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
-                .padding(dimensionResource(R.dimen.padding_small))
+                .padding(dimensionResource(coreR.dimen.padding_small))
         )
     }
 }
@@ -276,8 +277,8 @@ private fun ConfirmButton(
             onClick = onClick,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(dimensionResource(R.dimen.height_review_order_button))
-                .padding(dimensionResource(R.dimen.padding_small))
+                .height(dimensionResource(coreR.dimen.height_review_order_button))
+                .padding(dimensionResource(coreR.dimen.padding_small))
         ) {
             Text(
                 text = stringResource(R.string.confirm),

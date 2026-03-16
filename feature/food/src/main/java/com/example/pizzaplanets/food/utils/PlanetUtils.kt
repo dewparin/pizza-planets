@@ -1,6 +1,6 @@
 package com.example.pizzaplanets.food.utils
 
-import com.example.pizzaplanets.R
+import com.example.pizzaplanets.food.R
 import com.example.pizzaplanets.data.entity.Planet
 
 /**

@@ -31,12 +31,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.pizzaplanets.R
+import com.example.pizzaplanets.core.ui.R as coreR
 import com.example.pizzaplanets.core.ui.theme.PizzaPlanetsTheme
 import com.example.pizzaplanets.core.ui.widget.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.data.entity.Planet
-import com.example.pizzaplanets.ui.utils.durationToDisplayString
-import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode
+import com.example.pizzaplanets.food.R
+import com.example.pizzaplanets.food.utils.durationToDisplayString
+import com.example.pizzaplanets.food.utils.getPlanetDrawableByCode
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -54,7 +55,7 @@ fun HomeScreen(
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             PizzaPlanetsTopAppBar(
-                title = stringResource(R.string.app_name),
+                title = stringResource(coreR.string.app_name),
                 canNavigateBack = false,
                 showTitleIcon = true,
                 scrollBehavior = scrollBehavior,
@@ -84,7 +85,7 @@ private fun HomeBody(
         items(planetList) { planet ->
             PlanetItem(
                 modifier = Modifier
-                    .padding(dimensionResource(R.dimen.padding_medium)),
+                    .padding(dimensionResource(coreR.dimen.padding_medium)),
                 planet = planet,
                 onClick = {
                     onItemClick(planet)
@@ -111,14 +112,14 @@ private fun PlanetItem(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(dimensionResource(R.dimen.cover_image_size))
+                    .height(dimensionResource(coreR.dimen.cover_image_size))
             )
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(dimensionResource(R.dimen.padding_small))
+                    .padding(dimensionResource(coreR.dimen.padding_small))
             ) {
                 Text(
                     planet.name,
@@ -139,14 +140,14 @@ private fun PlanetItem(
                 style = MaterialTheme.typography.bodyLarge,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                lineHeight = with(LocalDensity.current) { dimensionResource(R.dimen.text_line_height).toSp() },
+                lineHeight = with(LocalDensity.current) { dimensionResource(coreR.dimen.text_line_height).toSp() },
                 textAlign = TextAlign.Justify,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        start = dimensionResource(R.dimen.padding_medium),
-                        end = dimensionResource(R.dimen.padding_medium),
-                        bottom = dimensionResource(R.dimen.padding_medium),
+                        start = dimensionResource(coreR.dimen.padding_medium),
+                        end = dimensionResource(coreR.dimen.padding_medium),
+                        bottom = dimensionResource(coreR.dimen.padding_medium),
                     )
             )
         }

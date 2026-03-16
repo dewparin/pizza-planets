@@ -50,6 +50,7 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":data"))
+    implementation(project(":feature:food"))
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Pizza Planets</string>
+    <string name="back_button">Back</string>
+    <string name="goto_order_list_description">Go to order list screen</string>
+    <string name="planet_image_description">Planet Image</string>
+    <string name="planet_duration">%ss. away</string>
+    <string name="planet_does_not_exist">The Planet does not exist! Beware of the invisible Black Hole.</string>
+    <string name="branch_title">%s Branch</string>
+    <string name="menu">Menu</string>
+    <string name="review_order">Review Order</string>
+    <string name="checkout">Checkout</string>
+    <string name="review_your_order">Review Your Order</string>
+    <string name="deliver_from">From</string>
+    <string name="deliver_to">Deliver To</string>
+    <string name="destination_address">Bangkok Space Terminal</string>
+    <string name="confirm">Confirm</string>
+    <string name="order_list">Your Orders</string>
+    <string name="no_order">No Order. Let\'s Make One!</string>
+    <string name="order_menu_count">%s Pizza(s)</string>
+    <string name="order_status_pending">Pending</string>
+    <string name="order_status_confirmed">Confirmed</string>
+    <string name="order_status_cooking">Cooking</string>
+    <string name="order_status_delivering">Delivering</string>
+    <string name="order_status_completed">Completed</string>
+    <string name="order_status_cancelled">Cancelled</string>
+</resources>

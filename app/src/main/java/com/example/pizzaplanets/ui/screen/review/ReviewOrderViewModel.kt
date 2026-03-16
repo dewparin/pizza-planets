@@ -2,12 +2,12 @@ package com.example.pizzaplanets.ui.screen.review
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pizzaplanets.data.OrderRepository
-import com.example.pizzaplanets.data.PlanetRepository
-import com.example.pizzaplanets.entity.Order
-import com.example.pizzaplanets.entity.Pizza
-import com.example.pizzaplanets.entity.Planet
-import com.example.pizzaplanets.entity.result.OrderQueryResult
+import com.example.pizzaplanets.core.data.OrderRepository
+import com.example.pizzaplanets.core.data.PlanetRepository
+import com.example.pizzaplanets.core.data.entity.Order
+import com.example.pizzaplanets.core.data.entity.Pizza
+import com.example.pizzaplanets.core.data.entity.Planet
+import com.example.pizzaplanets.core.data.entity.result.OrderQueryResult
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map

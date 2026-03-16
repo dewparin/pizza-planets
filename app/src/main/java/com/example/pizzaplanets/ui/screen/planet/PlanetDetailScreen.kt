@@ -39,8 +39,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
-import com.example.pizzaplanets.entity.Pizza
-import com.example.pizzaplanets.entity.Planet
+import com.example.pizzaplanets.core.data.entity.Pizza
+import com.example.pizzaplanets.core.data.entity.Planet
 import com.example.pizzaplanets.qc.TEST_TAG_PLANET_DETAIL_SCREEN_MENU_CHECKBOX
 import com.example.pizzaplanets.qc.TEST_TAG_PLANET_DETAIL_SCREEN_REVIEW_ORDER_BUTTON
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar

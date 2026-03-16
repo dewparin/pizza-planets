@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.work.manager)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.androidx.workmanager)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)

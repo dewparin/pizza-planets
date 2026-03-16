@@ -2,8 +2,8 @@ package com.example.pizzaplanets.ui.screen.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pizzaplanets.data.PlanetRepository
-import com.example.pizzaplanets.entity.Planet
+import com.example.pizzaplanets.core.data.PlanetRepository
+import com.example.pizzaplanets.core.data.entity.Planet
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map

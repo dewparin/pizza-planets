@@ -1,10 +1,10 @@
 package com.example.pizzaplanets.ui.screen.shared
 
-import com.example.pizzaplanets.entity.Order
-import com.example.pizzaplanets.entity.OrderStatus
-import com.example.pizzaplanets.entity.Pizza
-import com.example.pizzaplanets.entity.Planet
-import com.example.pizzaplanets.entity.result.OrderQueryResult
+import com.example.pizzaplanets.core.data.entity.Planet
+import com.example.pizzaplanets.core.data.entity.Order
+import com.example.pizzaplanets.core.data.entity.OrderStatus
+import com.example.pizzaplanets.core.data.entity.Pizza
+import com.example.pizzaplanets.core.data.entity.result.OrderQueryResult
 
 val mockPlanet = Planet(
     id = 1,

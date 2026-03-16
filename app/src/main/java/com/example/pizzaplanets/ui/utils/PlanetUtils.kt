@@ -1,7 +1,7 @@
 package com.example.pizzaplanets.ui.utils
 
 import com.example.pizzaplanets.R
-import com.example.pizzaplanets.entity.Planet
+import com.example.pizzaplanets.core.data.entity.Planet
 
 /**
  * @return Drawable Resource ID of the Planet.

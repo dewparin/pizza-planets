@@ -43,12 +43,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
-import com.example.pizzaplanets.entity.OrderStatus
-import com.example.pizzaplanets.entity.result.OrderQueryResult
+import com.example.pizzaplanets.core.data.entity.OrderStatus
+import com.example.pizzaplanets.core.data.entity.result.OrderQueryResult
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.ui.screen.shared.mockOrderDetailList
 import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
 import com.example.pizzaplanets.ui.utils.getPlanetDrawableByCode
+import com.example.pizzaplanets.ui.utils.statusColor
+import com.example.pizzaplanets.ui.utils.statusIcon
+import com.example.pizzaplanets.ui.utils.statusStringRes
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

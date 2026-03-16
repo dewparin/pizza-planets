@@ -10,7 +10,7 @@ import androidx.compose.material.icons.filled.Timelapse
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.pizzaplanets.R
-import com.example.pizzaplanets.core.data.entity.OrderStatus
+import com.example.pizzaplanets.data.entity.OrderStatus
 
 
 /**

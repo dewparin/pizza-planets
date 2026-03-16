@@ -1,6 +1,6 @@
 package com.example.pizzaplanets.di
 
-import com.example.pizzaplanets.core.data.di.dataModule
+import com.example.pizzaplanets.data.di.dataModule
 import com.example.pizzaplanets.ui.screen.home.HomeScreenViewModel
 import com.example.pizzaplanets.ui.screen.order.OrderListViewModel
 import com.example.pizzaplanets.ui.screen.planet.PlanetDetailViewModel

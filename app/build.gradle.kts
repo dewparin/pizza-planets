@@ -48,7 +48,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
+    implementation(project(":data"))
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)

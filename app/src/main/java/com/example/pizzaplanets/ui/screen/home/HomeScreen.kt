@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
-import com.example.pizzaplanets.core.data.entity.Planet
+import com.example.pizzaplanets.data.entity.Planet
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme
 import com.example.pizzaplanets.ui.utils.durationToDisplayString

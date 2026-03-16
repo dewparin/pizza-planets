@@ -43,8 +43,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pizzaplanets.R
-import com.example.pizzaplanets.core.data.entity.OrderStatus
-import com.example.pizzaplanets.core.data.entity.result.OrderQueryResult
+import com.example.pizzaplanets.data.entity.OrderStatus
+import com.example.pizzaplanets.data.entity.result.OrderQueryResult
 import com.example.pizzaplanets.ui.PizzaPlanetsTopAppBar
 import com.example.pizzaplanets.ui.screen.shared.mockOrderDetailList
 import com.example.pizzaplanets.ui.theme.PizzaPlanetsTheme

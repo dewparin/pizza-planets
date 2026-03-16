@@ -2,8 +2,8 @@ package com.example.pizzaplanets.ui.screen.order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pizzaplanets.core.data.OrderRepository
-import com.example.pizzaplanets.core.data.entity.result.OrderQueryResult
+import com.example.pizzaplanets.data.OrderRepository
+import com.example.pizzaplanets.data.entity.result.OrderQueryResult
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
